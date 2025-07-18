@@ -4,7 +4,7 @@ import {
   IconHome2,
   IconSearch,
   IconBell,
-  IconPlus,
+  IconSquarePlus,
 } from '@tabler/icons-react';
 
 const BottomNavBar: React.FC = () => {
@@ -24,25 +24,25 @@ const BottomNavBar: React.FC = () => {
       }}
     >
       <ActionIcon variant="subtle" size="lg">
-        <IconHome2 size={24} />
+        <IconHome2 color="black" size={30} />
       </ActionIcon>
 
       <ActionIcon variant="subtle" size="lg">
-        <IconSearch size={24} />
+        <IconSearch color="black" size={30} />
       </ActionIcon>
 
       <ActionIcon variant="subtle" size="lg">
-        <IconPlus size={24} />
+        <IconSquarePlus color="black" size={30} />
       </ActionIcon>
       
       <ActionIcon variant="subtle" size="lg">
-        <IconBell size={24} />
+        <IconBell color="black" size={30} />
         </ActionIcon>
 
       <Avatar
         src="https://i.pravatar.cc/150?img=5"
         radius="xl"
-        size={32}
+        size={35}
       />
     </Box>
   );
