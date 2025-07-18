@@ -1,4 +1,4 @@
-import { UseOSReturnValue } from "@mantine/hooks";
+import { type UseOSReturnValue } from "@mantine/hooks";
 import { createContext } from "react";
 type OSContextType = {
   os: UseOSReturnValue;
