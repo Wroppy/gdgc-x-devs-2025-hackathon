@@ -13,6 +13,7 @@ import "@mantine/notifications/styles.css";
 import "@mantine/dropzone/styles.css";
 import "@mantine/spotlight/styles.css";
 import "@mantine/code-highlight/styles.css";
+import Dev from "./pages/Dev.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -22,6 +23,8 @@ createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route element={<RootLayout />}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/dev" element={<Dev />} />
           </Route>
         </Routes>
       </BrowserRouter>

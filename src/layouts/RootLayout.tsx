@@ -5,7 +5,6 @@ const RootLayout = () => {
     <div id="root-layout">
       <div id="root-content">
       <Outlet />
-        
       </div>
     </div>
   );
