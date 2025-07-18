@@ -11,7 +11,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root-layout  {
+#root-layout {
   height: 100dvh;
   width: 100dvw;
   display: flex;
@@ -26,8 +26,12 @@
   height: 100%;
   width: 100%;
 }
-   
 
-html, body {
+html,
+body {
   margin: 0;
+}
+
+* {
+  box-sizing: border-box;
 }

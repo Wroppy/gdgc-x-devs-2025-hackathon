@@ -16,6 +16,7 @@ import "@mantine/code-highlight/styles.css";
 import Dev from "./pages/Dev.tsx";
 import theme from "./theme.ts";
 import NotFoundPage from "./pages/not-found-page/NotFoundPage.tsx";
+import FeedbackPage from "./pages/feedback-page/FeedbackPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -28,6 +29,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/home" element={<HomePage />} />
             <Route path="/dev" element={<Dev />} />
             <Route path="*" element={<NotFoundPage />} />
+            <Route path="/feedback" element={<FeedbackPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

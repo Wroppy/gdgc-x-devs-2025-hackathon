@@ -1,0 +1,8 @@
+.reviewForm {
+  height: 100%; 
+}
+
+.reviewForm > div {
+  height: 100%;
+  width: 100%;
+}
