@@ -13,12 +13,9 @@ import "@mantine/notifications/styles.css";
 import "@mantine/dropzone/styles.css";
 import "@mantine/spotlight/styles.css";
 import "@mantine/code-highlight/styles.css";
-<<<<<<< HEAD
 import Dev from "./pages/Dev.tsx";
-=======
 import theme from "./theme.ts";
 import NotFoundPage from "./pages/not-found-page/NotFoundPage.tsx";
->>>>>>> main
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -28,12 +25,9 @@ createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route element={<RootLayout />}>
             <Route path="/" element={<HomePage />} />
-<<<<<<< HEAD
             <Route path="/home" element={<HomePage />} />
             <Route path="/dev" element={<Dev />} />
-=======
             <Route path="*" element={<NotFoundPage />} />
->>>>>>> main
           </Route>
         </Routes>
       </BrowserRouter>
