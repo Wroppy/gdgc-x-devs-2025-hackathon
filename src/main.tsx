@@ -16,7 +16,7 @@ import { MantineProvider } from "@mantine/core";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MantineProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="gdgc-x-devs-2025-hackathon">
         <Routes>
           <Route element={<RootLayout />}>
             <Route path="/" element={<HomePage />} />
