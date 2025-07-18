@@ -1,9 +1,6 @@
-import { Center, Divider, Group } from "@mantine/core";
-import React from "react";
+import { Center, Divider } from "@mantine/core";
 
-type Props = {};
-
-const NotFoundPage = (props: Props) => {
+const NotFoundPage = () => {
   return (
     <Center>
       <div style={{display: 'flex', gap: "1rem", fontSize: "2rem"}}>
