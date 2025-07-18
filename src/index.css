@@ -22,6 +22,11 @@
   flex-grow: 1;
 }
 
+#root-content > div {
+  height: 100%;
+  width: 100%;
+}
+   
 
 html, body {
   margin: 0;

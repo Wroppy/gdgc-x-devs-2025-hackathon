@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router";
 import RootLayout from "./layouts/RootLayout.tsx";
-import HomePage from "./pages/HomePage.tsx";
+import HomePage from "./pages/home-page/HomePage.tsx";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 
@@ -13,18 +13,27 @@ import "@mantine/notifications/styles.css";
 import "@mantine/dropzone/styles.css";
 import "@mantine/spotlight/styles.css";
 import "@mantine/code-highlight/styles.css";
+<<<<<<< HEAD
 import Dev from "./pages/Dev.tsx";
+=======
+import theme from "./theme.ts";
+import NotFoundPage from "./pages/not-found-page/NotFoundPage.tsx";
+>>>>>>> main
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <MantineProvider>
+    <MantineProvider theme={theme}>
       <Notifications />
       <BrowserRouter>
         <Routes>
           <Route element={<RootLayout />}>
             <Route path="/" element={<HomePage />} />
+<<<<<<< HEAD
             <Route path="/home" element={<HomePage />} />
             <Route path="/dev" element={<Dev />} />
+=======
+            <Route path="*" element={<NotFoundPage />} />
+>>>>>>> main
           </Route>
         </Routes>
       </BrowserRouter>
