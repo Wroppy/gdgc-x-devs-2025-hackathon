@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext'
 type Props = {}
 
 const FindRequestsPage = (props: Props) => {
-  const 
+  
   return (
     <div>FindRequestsPage</div>
   )

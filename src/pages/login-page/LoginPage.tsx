@@ -51,7 +51,7 @@ const LoginPage = (props: Props) => {
         console.log("User set to: ", customer);
         // Set user in AuthContext
       } else if (owner) {
-        navigate("/owner-dashboard");
+        navigate("/restaurant");
         setUser(owner);
         setRole("restaurant_owner");
         showNotification({

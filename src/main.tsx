@@ -23,6 +23,7 @@ import { showNotification } from "@mantine/notifications";
 import { AuthProvider } from "./contexts/AuthContext.tsx";
 import Test from "./pages/Test.tsx";
 import Request from "./pages/request-page/RequestPage.tsx";
+import RestaurantHomePage from "./pages/restaurant-home-page/RestaurantHomePage.tsx";
 
 
 createRoot(document.getElementById("root")!).render(
@@ -43,6 +44,7 @@ createRoot(document.getElementById("root")!).render(
               <Route index element={<CustomerHomePage />} />
               <Route path="request" element={<Request />} />
             </Route>
+            <Route path="/restaurant" element={<RestaurantHomePage />} />
             <Route path="/test" element={<Test />} />
             </Route>
           </Routes>
