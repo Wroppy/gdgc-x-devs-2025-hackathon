@@ -83,14 +83,16 @@ const CustomerChatPage = () => {
         name={receiverInfo.name}
         avatarUrl={receiverInfo.avatarUrl}
       />
-      <Group p="sm">
-        <Button onClick={() => setOpenOffer(true)} color="accent" flex={1}>
-          Accept Offer
-        </Button>
-        <Button variant="outline" flex={1}>
-          Decline Offer
-        </Button>
-      </Group>
+      {role === "customer" && (
+        <Group p="sm">
+          <Button onClick={() => setOpenOffer(true)} color="accent" flex={1}>
+            Accept Offer
+          </Button>
+          <Button variant="outline" flex={1}>
+            Decline Offer
+          </Button>
+        </Group>
+      )}
       <ChatBox onSend={handleSendMessage} offerId={parseInt(offerId)} />
     </div>
   );

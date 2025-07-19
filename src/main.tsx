@@ -52,6 +52,7 @@ createRoot(document.getElementById("root")!).render(
                 <Route index element={<RestaurantHomePage />} />
                 <Route path="find" element={<FindRequestsPage />} />
                 <Route path="offer" element={<OfferPage />} />
+                <Route path="chat/:offerId" element={<CustomerChatPage />} />
               </Route>
             </Route>
           </Routes>

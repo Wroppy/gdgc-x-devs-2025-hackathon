@@ -6,8 +6,10 @@ import OfferForm from "../../components/offer-form/OfferForm";
 import { Link, useSearchParams } from "react-router";
 import supabase from "../../supabase-client";
 import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router";
 
 const OfferPage = () => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const requestId = searchParams.get("request_id");
   const requestIdNumber = requestId ? parseInt(requestId, 10) : null;
@@ -95,6 +97,9 @@ const OfferPage = () => {
           console.error("Error inserting image message:", a);
         }
       }
+    }
+    if (data?.id) {
+      navigate(`/restaurant/chat/${data.id}`);
     }
   };
 
