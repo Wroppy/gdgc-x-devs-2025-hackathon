@@ -17,6 +17,8 @@ import Dev from "./pages/Dev.tsx";
 import theme from "./theme.ts";
 import NotFoundPage from "./pages/not-found-page/NotFoundPage.tsx";
 import FeedbackPage from "./pages/feedback-page/FeedbackPage.tsx";
+import Test from "./pages/Test.tsx";
+import Request from "./pages/request-page/RequestPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -30,6 +32,8 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/dev" element={<Dev />} />
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/feedback" element={<FeedbackPage />} />
+            <Route path="/test" element={<Test />} />
+            <Route path="/request" element={<Request />} />
           </Route>
         </Routes>
       </BrowserRouter>
