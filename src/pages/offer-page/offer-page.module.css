@@ -1,0 +1,17 @@
+.offerPageHeader {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.backButton {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 0
+}
+
+.offerPage {
+  display: flex;
+  flex-direction: column;
+}
