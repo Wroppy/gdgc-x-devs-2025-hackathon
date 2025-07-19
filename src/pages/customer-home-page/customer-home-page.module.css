@@ -1,0 +1,49 @@
+.dishcoverScreen {
+  position: relative;
+}
+.graphic {
+  flex-grow: 1;
+}
+
+.svgGraphic {
+  position: absolute;
+  /* top: 0; */
+  /* left: 0; */
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+.graphicText {
+  position: relative;
+  z-index: 100;
+
+}
+
+.requestBox {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+}
+
+.nearbyBox {
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+}
+
+.newButton {
+  color: black;
+}
+
+.newButton:hover {
+  background-color: rgb(240, 240, 240);
+  color: black;
+}
+
+.nearbyBox, .requestBox {
+  padding: 1rem;
+} 
