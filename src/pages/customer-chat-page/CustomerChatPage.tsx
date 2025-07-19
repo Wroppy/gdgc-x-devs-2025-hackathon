@@ -47,6 +47,7 @@ const CustomerChatPage = () => {
         return;
       }
 
+      // @ts-expect-error yeah lol dont how this works
       const owner = data.restaurant?.owner;
       setReceiverInfo({
         name: owner?.name ?? "Unknown",

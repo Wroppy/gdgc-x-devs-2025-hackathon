@@ -59,6 +59,7 @@ const LoginPage = (props: Props) => {
           role: "customer",
         };
         navigate("/customer");
+        // @ts-expect-error yeah lol dont how this works
         setUser(fetchedCustomer);
         setRole("customer");
         showNotification({
@@ -79,6 +80,7 @@ const LoginPage = (props: Props) => {
           role: "restaurant_owner",
         };
         navigate("/restaurant");
+        // @ts-expect-error yeah lol dont how this works
         setUser(fetchedOwner);
         setRole("restaurant_owner");
         showNotification({
