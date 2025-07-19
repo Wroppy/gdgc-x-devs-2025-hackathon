@@ -1,15 +1,15 @@
 import React from "react";
 import RequestForm from "../components/request-form/RequestForm";
 import RestaurantNavBar from "../layouts/RestaurantNavBar";
-import BottomNavBar from "../layouts/BottomNavBar";
+import OfferPage from "../pages/offer-page/OfferPage";
+import OfferForm from "../components/offer-form/OfferForm";
 
 type Props = {};
 
 const Test = (props: Props) => {
   return (
     <div>
-        <RequestForm />
-        <BottomNavBar />
+        <OfferPage />
     </div>
   );
 };

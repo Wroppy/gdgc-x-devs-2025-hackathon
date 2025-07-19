@@ -1,0 +1,9 @@
+.offerForm {
+  height: 100%;
+  width: 100%;
+}
+
+.offerForm > div {
+  height: 100%;
+  width: 100%;
+}
