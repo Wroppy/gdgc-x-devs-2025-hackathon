@@ -55,7 +55,7 @@ const ChatBox = ({ onSend }: Props) => {
               variant="transparent"
               size="lg"
             >
-              <IconSend />
+              <IconSend size={20} />
             </ActionIcon>
           }
           value={message}
