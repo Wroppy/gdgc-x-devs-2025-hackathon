@@ -12,7 +12,7 @@ import { useElementSize } from "@mantine/hooks";
 import { IconSearch } from "@tabler/icons-react";
 import BottomNavBar from "../../layouts/BottomNavBar";
 import { Link } from "react-router";
-import DesktopNavbar from "../../components/desktop-navbar/DesktopNavbar";
+import HomeNavBar from "../../components/desktop-navbar/HomeNavBar";
 
 export default function DishcoverScreen() {
   const { ref, width, height } = useElementSize();
@@ -24,7 +24,7 @@ export default function DishcoverScreen() {
       }}
       className={styles.dishcoverScreen}
     >
-      <DesktopNavbar />
+      <HomeNavBar />
       <Stack ref={ref} className={styles.graphic}>
         <svg
           viewBox={`${width} ${height}`}
