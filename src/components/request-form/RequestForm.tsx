@@ -50,7 +50,7 @@ const RequestForm = () => {
 
     return (
         <Box>
-            <form onSubmit={handleSubmit} className={styles.reviewForm}>
+            <form onSubmit={handleSubmit} className={styles.requestForm}>
                 <Stack>
                     <DateTimePicker
                         label="TIME"
@@ -80,19 +80,18 @@ const RequestForm = () => {
                         onChange={setCuisine}
                         clearable
                     />
-                    <Box>
-                        <Text size="sm" fw={500} mb={4}>
-                            BUDGET PER PERSON:
-                        </Text>
-                        <RangeSlider 
-                            minRange={10} min={0} max={100} step={10} defaultValue={[10, 20]} 
-                            label={(value) => (value === 100 ? "$100+" : `$${value}`)}
-                            marks={[
-                                { value: 0, label: '$0' },
-                                { value: 50, label: '$50' },
-                                { value: 100, label: '$100+' },
-                            ]}/>
-                    </Box>
+                    <Text size="sm" fw={500} mb={4}>
+                        BUDGET PER PERSON:
+                    </Text>
+                    <RangeSlider 
+                        minRange={10} min={0} max={100} step={10} defaultValue={[10, 20]} 
+                        label={(value) => (value === 100 ? "$100+" : `$${value}`)}
+                        w="99%"
+                        marks={[
+                            { value: 0, label: '$0' },
+                            { value: 50, label: '$50' },
+                            { value: 100, label: '$100+' },
+                        ]}/>
 
                     <TagsInput
                         label="MOOD"
