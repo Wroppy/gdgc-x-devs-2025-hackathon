@@ -44,19 +44,19 @@ export default function DishcoverScreen() {
               height * 0.6
             } 
               Z`}
-            fill="#ff7c00"
+            fill="#00c39a"
           />
           <path
             d={`M-10 ${height * 0.7}
                 C0 ${height * 0.8} ${width} ${height * 0.7} ${width} ${height}
                 L${width} ${height} L0 ${height}
               Z`}
-            fill="#00c39a"
+            fill="#ff7c00"
           />
         </svg>
         <Box className={styles.graphicText}>
           <Box className={styles.requestBox} h={height * 0.5}>
-            <Text size="lg" fw={600}>
+            <Text size="lg" fw={600} c = "white">
               Looking for more customers? 
             </Text>
             <Button
@@ -68,7 +68,7 @@ export default function DishcoverScreen() {
               maw={200}
               color="white"
             >
-              Find Requests
+              Find customers
             </Button>
           </Box>
           <Box className={styles.nearbyBox} h={height * 0.5}>
@@ -76,7 +76,7 @@ export default function DishcoverScreen() {
               Or check latest reviews?
             </Text>
             <Button radius="md" color="orange" mt="xs">
-              Reviews
+              Go to reviews
             </Button>
           </Box>
         </Box>

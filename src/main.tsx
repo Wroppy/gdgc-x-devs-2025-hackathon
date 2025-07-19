@@ -37,7 +37,7 @@ createRoot(document.getElementById("root")!).render(
           <Routes>
             <Route element={<RootLayout />}>
               <Route path="/" element={<LoginPage />} />
-              <Route path="/home" element={<HomePage />} />
+              <Route path="/home" element={<LoginPage />} />
               <Route path="/dev" element={<Dev />} />
               <Route path="*" element={<NotFoundPage />} />
               <Route path="/login" element={<LoginPage />} />
