@@ -35,9 +35,11 @@ createRoot(document.getElementById("root")!).render(
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/feedback" element={<FeedbackPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/customer" element={<CustomerHomePage />} />
+            <Route path="customer">
+              <Route index element={<CustomerHomePage />} />
+              <Route path="request" element={<Request />} />
+            </Route>
             <Route path="/test" element={<Test />} />
-            <Route path="/request" element={<Request />} />
           </Route>
         </Routes>
       </BrowserRouter>

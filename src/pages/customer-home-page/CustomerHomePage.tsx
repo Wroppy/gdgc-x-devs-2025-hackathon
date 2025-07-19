@@ -11,6 +11,7 @@ import styles from "./customer-home-page.module.css";
 import { useElementSize } from "@mantine/hooks";
 import { IconSearch } from "@tabler/icons-react";
 import BottomNavBar from "../../layouts/BottomNavBar";
+import { Link } from "react-router";
 
 export default function DishcoverScreen() {
   const { ref, width, height } = useElementSize();
@@ -66,6 +67,8 @@ export default function DishcoverScreen() {
               Craving for something new?
             </Text>
             <Button
+              component={Link}
+              to="/customer/request"
               className={styles.newButton}
               radius="md"
               variant="filled"
