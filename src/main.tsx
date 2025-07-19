@@ -27,6 +27,7 @@ import Request from "./pages/request-page/RequestPage.tsx";
 import RestaurantHomePage from "./pages/restaurant-home-page/RestaurantHomePage.tsx";
 import FindRequestsPage from "./pages/restaurant-find-requests/FindRequestsPage.tsx";
 import OfferPage from "./pages/offer-page/OfferPage.tsx";
+import CustomerViewOffersPage from "./pages/customer-view-offers-page/CustomerViewOffersPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -46,6 +47,7 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="chat" element={<CustomerChatPage />} />
                 <Route path="request" element={<Request />} />
                 <Route path="feedback" element={<FeedbackPage />} />
+                <Route path="offers" element={<CustomerViewOffersPage />} />
               </Route>
               <Route path="/restaurant">
                 <Route index element={<RestaurantHomePage />} />
