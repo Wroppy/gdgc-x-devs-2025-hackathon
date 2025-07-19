@@ -26,6 +26,7 @@ import Test from "./pages/Test.tsx";
 import Request from "./pages/request-page/RequestPage.tsx";
 import RestaurantHomePage from "./pages/restaurant-home-page/RestaurantHomePage.tsx";
 import FindRequestsPage from "./pages/restaurant-find-requests/FindRequestsPage.tsx";
+import OfferPage from "./pages/offer-page/OfferPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -48,7 +49,8 @@ createRoot(document.getElementById("root")!).render(
               </Route>
               <Route path="/restaurant">
                 <Route index element={<RestaurantHomePage />} />
-                <Route path="find-requests" element={<FindRequestsPage />} />
+                <Route path="find" element={<FindRequestsPage />} />
+                <Route path="offer" element={<OfferPage />} />
               </Route>
               <Route path="/test" element={<Test />} />
             </Route>

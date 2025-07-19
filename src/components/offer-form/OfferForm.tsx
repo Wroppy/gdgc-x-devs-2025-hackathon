@@ -97,7 +97,7 @@ const OfferForm = ({ onSubmit }: Props) => {
         </Group>
 
         <Textarea
-          label="ADDITIONAL NOTES"
+          label="Additional Notes"
           placeholder="Enter additional details to your offer here."
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
@@ -106,7 +106,7 @@ const OfferForm = ({ onSubmit }: Props) => {
         />
 
         <Button fullWidth color="orange" onClick={handleSubmit}>
-          Send the Offer
+          Send offer
         </Button>
       </Stack>
       </form>

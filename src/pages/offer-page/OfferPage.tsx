@@ -27,7 +27,7 @@ return (
           variant="transparent"
           color="white"
           className={styles.backButton}
-          to={"/"}  //TODO: decide where it lead to
+          to={"/restaurant/find"}  //TODO: decide where it lead to
         >
           <IconChevronLeft size={24} />
         </ActionIcon>

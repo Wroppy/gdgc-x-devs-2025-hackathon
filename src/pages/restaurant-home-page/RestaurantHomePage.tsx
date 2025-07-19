@@ -61,7 +61,7 @@ export default function DishcoverScreen() {
             </Text>
             <Button
               component={Link}
-              to="/restaurant/find-requests"
+              to="/restaurant/find"
               className={styles.newButton}
               radius="md"
               variant="filled"
