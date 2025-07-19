@@ -30,6 +30,14 @@ type Props = {
   }) => Promise<void>;
 };
 
+const getAddressFromCoords = async (lat: number, lng: number) => {
+  const res = await fetch(
+    `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+  );
+  const data = await res.json();
+  return data.display_name || "Address not found";
+};
+
 const RequestForm = ({ onSubmit }: Props) => {
   const [date, setDate] = useState<Date | null>(new Date());
   const [groupSize, setGroupSize] = useState<number>(6);
@@ -62,21 +70,30 @@ const RequestForm = ({ onSubmit }: Props) => {
     await onSubmit?.(payload);
   };
 
-  const findLocation = () => {
+  const findLocation = async () => {
     // Placeholder for location finding logic
     console.log("Finding location...");
     if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(({coords}) => {
-        // SUCCESSFUL:
-        const {latitude, longitude} = coords;
-        console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-        setLocation(`${latitude}, ${longitude}`);
-      }, () => {
-        setLocation("Unable to retrieve your location.");
-      });
+      navigator.geolocation.watchPosition(
+        ({ coords }) => {
+          // SUCCESSFUL:
+          const { latitude, longitude } = coords;
+            getAddressFromCoords(latitude, longitude)
+                .then((address) => {
+                setLocation(address);
+                })
+                .catch((error) => {
+                console.error("Error fetching address:", error);
+                setLocation("Unable to retrieve address.");
+                });
+        },
+        () => {
+          setLocation("Unable to retrieve your location.");
+        }
+      );
     } else {
-        // ERROR:
-        setLocation("Geolocation is not supported by this browser.");
+      // ERROR:
+      setLocation("Geolocation is not supported by this browser.");
     }
   };
 

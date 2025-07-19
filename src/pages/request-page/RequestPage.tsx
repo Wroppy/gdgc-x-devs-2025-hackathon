@@ -4,6 +4,7 @@ import React from "react";
 import styles from "./request-page.module.css";
 import RequestForm from "../../components/request-form/RequestForm";
 import { Link } from "react-router";
+import supabase from "../../supabase-client";
 type Props = {};
 
 const RequestPage = (props: Props) => {
@@ -18,8 +19,39 @@ const RequestPage = (props: Props) => {
   }) => {
     console.log("Request submitted:", data);
     // Here you would typically send the data to your backend
+    let budgeRange;
+    if (data.budgetRange[1] < 40) {
+      budgeRange = "$";
+    }
+    if (data.budgetRange[1] >= 40 && data.budgetRange[1] < 80) {
+      budgeRange = "$$";
+    }
+    if (data.budgetRange[1] >= 80) {
+      budgeRange = "$$$";
+    }
 
-    
+    supabase
+      .from("customer_requests")
+      .insert([
+        {
+          customer_id: "1",
+          group_size: data.groupSize,
+          // location: data.location,
+          preferred_cuisines: data.cuisine,
+          preferred_vibes: data.mood,
+          budget: budgeRange,
+          // notes: data.notes,
+          preferred_time: data.time ? data.time.toISOString() : null,
+        },
+      ])
+
+      .then(({ data, error }) => {
+        if (error) {
+          console.error("Error inserting request:", error);
+        } else {
+          console.log("Request inserted successfully:", data);
+        }
+      });
   };
 
   return (
