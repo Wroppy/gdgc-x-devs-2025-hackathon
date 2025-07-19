@@ -3,6 +3,7 @@ import type { CustomerRequest } from "../../types/CustomerRequest";
 import CustomerAvatar from "../../components/customer-avatar/CustomerAvatar";
 import { Accordion, Box, Button, Group, Text } from "@mantine/core";
 import styles from "./resturant-find-requests.module.css";
+import { Link } from "react-router";
 
 type Props = {
   customerRequest: CustomerRequest;
@@ -77,7 +78,10 @@ const UserRequest = ({ customerRequest }: Props) => {
             </Text>
 
             <Group justify="flex-end">
-              <Button variant="outline">Make an offer</Button>
+              <Button 
+                component={Link}
+                to={`/restaurant/offer?date=${preferred_time}`}
+              variant="outline">Make an offer</Button>
             </Group>
           </Box>
         </Accordion.Panel>
