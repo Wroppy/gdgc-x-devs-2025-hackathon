@@ -1,0 +1,17 @@
+.chatBox {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.messagesBox {
+  flex-grow: 1;
+}
+
+.inputForm {
+}
+
+.rightSection {
+  display: flex;
+}
