@@ -7,7 +7,7 @@ type Props = {};
 const MessagesContainer = (props: Props) => {
   const [filter, setFilter] = useState<string>("");
   return (
-    <div>
+    <div style={{"flexGrow": 1}}>
       <Box p="md">
         <Text size="lg" fw={500}>Messages</Text>
         <Select
