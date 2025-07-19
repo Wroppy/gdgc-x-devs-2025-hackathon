@@ -46,16 +46,12 @@ const CustomerChatPage = () => {
         console.error("Failed to fetch restaurant owner info:", error);
         return;
       }
-      // console.log(data.restaurant)
-      // const owner = data.restaurant?.owner;
-      // setReceiverInfo({
-      //   name: owner?.name ?? "Unknown",
-      //   avatarUrl: owner?.restaurant_owner_image_url ?? "/fallback.png",
-      // });
+
+      // @ts-expect-error yeah lol dont how this works
+      const owner = data.restaurant?.owner;
       setReceiverInfo({
-        name: "Eugene Krabs", 
-        avatarUrl:
-          "https://xivesioqwjixsrrkgkcv.supabase.co/storage/v1/object/public/restaurant-owner-image-url/restaurant_owners/eugene_krabs.jpeg",
+        name: owner?.name ?? "Unknown",
+        avatarUrl: owner?.restaurant_owner_image_url ?? "/fallback.png",
       });
       console.log("Receiver info for customer:", receiverInfo);
     } else if (role === "restaurant_owner") {

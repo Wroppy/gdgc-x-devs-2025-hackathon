@@ -117,13 +117,15 @@ const CustomerViewOffersPage = () => {
 
           const newParsed: Offer = {
             id: data.id,
-            restaurantName: data.restaurant[0]?.name ?? "Unknown",
+            // @ts-expect-error wadwa
+            restaurantName: data.restaurant?.name ?? "Unknown",
             offerMessage: data.offer_message,
             additionalInfo: data.additional_notes ?? "",
             imageUrl: data.food_images ?? [],
             createdAt: data.created_at,
             restaurantImage:
-              data.restaurant[0]?.restaurant_image_url ?? "/fallback.png",
+                  // @ts-expect-error yeah lol dont how this works
+              data.restaurant?.restaurant_image_url ?? "/fallback.png",
           };
 
           setOffers((prev) => [newParsed, ...prev]);
