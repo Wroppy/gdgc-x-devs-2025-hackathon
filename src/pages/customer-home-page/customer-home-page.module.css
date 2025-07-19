@@ -1,5 +1,7 @@
 .dishcoverScreen {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .graphic {
   flex-grow: 1;

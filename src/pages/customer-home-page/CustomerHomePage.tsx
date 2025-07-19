@@ -10,11 +10,13 @@ import {
 import styles from "./customer-home-page.module.css";
 import { useElementSize } from "@mantine/hooks";
 import { IconSearch } from "@tabler/icons-react";
+import BottomNavBar from "../../layouts/BottomNavBar";
+
 export default function DishcoverScreen() {
   const { ref, width, height } = useElementSize();
 
   return (
-    <Stack
+    <div
       style={{
         overflow: "hidden",
       }}
@@ -83,6 +85,9 @@ export default function DishcoverScreen() {
           </Box>
         </Box>
       </Stack>
-    </Stack>
+      <Box style={{width: "100%", height: "60px" }}>
+        <BottomNavBar />
+      </Box>
+    </div>
   );
 }
