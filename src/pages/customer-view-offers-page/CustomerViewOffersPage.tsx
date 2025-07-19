@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import BottomNavBar from "../../layouts/BottomNavBar";
 import RestaurantOfferBox from "../../components/restaurant-offer-box/RestaurantOfferBox";
 import type { Offer } from "../../types/Offer";
+import supabase from "../../supabase-client";
 
 const Skeletons = () => {
   const fakes = [
@@ -38,10 +39,48 @@ const CustomerViewOffersPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate fetching offers
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    supabase
+      .from("restaurant_offers")
+      .select("*")
+      .then((response) => {
+        if (response.error) {
+          console.error("Error fetching offers:", response.error);
+        } else {
+          const parsed = response.data.map((offer) => ({
+            name: "Krusty Krab",
+            offerMessage: offer.offer_message,
+            avatarUrl: "/krusty-crab.png",
+          }));
+          setOffers((prev) => [...parsed, ...prev]);
+          setLoading(false);
+        }
+      });
+
+    const channel = supabase
+      .channel("realtime:restaurant_offers")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "restaurant_offers" },
+        (payload) => {
+          const newOffer = {
+            name: "Krusty Krab",
+            offerMessage: payload.new.offer_message,
+            avatarUrl: "/krusty-crab.png",
+          };
+          setOffers((prevOffers) => [newOffer, ...prevOffers]);
+        }
+      )
+      .subscribe((status, error) => {
+        if (error) {
+          console.error("Error subscribing to restaurant offers:", error);
+        } else {
+          console.log("Subscribed to restaurant offers channel");
+        }
+      });
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   useEffect(() => {
