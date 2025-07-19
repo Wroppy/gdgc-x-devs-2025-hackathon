@@ -12,7 +12,7 @@ const OfferPage = (props: Props) => {
 
     const handleSubmit = async (data: {
         whyChooseUs: string;
-        photo: string; //TODO: check this
+        photo: string;
         notes: string;
     }) => {
     console.log("Request submitted:", data);
