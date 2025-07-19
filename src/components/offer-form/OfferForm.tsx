@@ -22,21 +22,11 @@ type Props = {
     notes: string;
     request_id: string;
   }) => Promise<void>;
+  offerTime?: string;
 };
 
-const OfferForm = ({ onSubmit }: Props) => {
+const OfferForm = ({ onSubmit, offerTime = "" }: Props) => {
   const [searchParams] = useSearchParams();
-  const offerTime = useMemo(() => {
-    const dateParam = searchParams.get("date");
-    console.log(dateParam);
-    if (dateParam) {
-      return new Date(dateParam.replace(" ", "+")).toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-    }
-    return null;
-  }, [searchParams]);
 
   const [whyChooseUs, setWhyChooseUs] = useState("");
   const [notes, setNotes] = useState("");
@@ -69,7 +59,6 @@ const OfferForm = ({ onSubmit }: Props) => {
         <Text size="sm" fw={500} mb={4}>
           Date & time: <Text span>{offerTime || "Loading..."}</Text>
         </Text>
-        <Text></Text>
         <Textarea
           label="Why choose us?"
           placeholder="Reasons for why customer should choose your restaurant."
@@ -77,14 +66,12 @@ const OfferForm = ({ onSubmit }: Props) => {
           onChange={(e) => setWhyChooseUs(e.target.value)}
           autosize
           required
-          minRows={3}
+          minRows={4}
           disabled={uploading}
         />
 
-        <Text size="sm" fw={500} mb={4}>
-          Send a photo with your offer (optional)
-        </Text>
         <FileInput
+          label="Send a photo with your offer (optional)"
           placeholder="Upload a photo"
           value={image}
           onChange={(file) => {

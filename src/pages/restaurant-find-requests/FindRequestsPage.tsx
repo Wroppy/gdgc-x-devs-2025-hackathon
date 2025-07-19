@@ -7,12 +7,15 @@ import {
   Box,
   Center,
   Loader,
+  Modal,
   Select,
   Skeleton,
   Stack,
   Text,
 } from "@mantine/core";
 import DesktopNavbar from "../../components/desktop-navbar/DesktopNavbar";
+import OfferModal from "./OfferModal";
+import { useDisclosure } from "@mantine/hooks";
 
 const Skeletons = () => {
   const placeholder = {
@@ -34,7 +37,7 @@ const Skeletons = () => {
   );
 };
 
-const FindRequestsPage = (props: Props) => {
+const FindRequestsPage = () => {
   const { user, role } = useAuth();
   const [loading, setLoading] = useState(true);
   console.log("User:", user);
@@ -78,54 +81,76 @@ const FindRequestsPage = (props: Props) => {
     };
   }, []);
 
+  const [opened, { open, close }] = useDisclosure(true);
+  const [offerTime, setOfferTime] = useState("");
+
+  const handleOfferClick = (time: string) => {
+    setOfferTime(
+      new Date(time).toLocaleTimeString([], {
+        hour: "2-digit",
+
+        minute: "2-digit",
+      })
+    );
+    open();
+  };
+
   return (
-    <Stack>
-      <Box>
-        <DesktopNavbar heading="Find Customers" />
-        <Box pl="sm" pr="sm">
-          <Select
-            label="Sort by"
-            clearable
-            data={[
-              { value: "group-size", label: "Group Size" },
-              { value: "distance", label: "Distance" },
-              { value: "time-posted", label: "Time Posted" },
-            ]}
-            placeholder="Select sorting option"
-          />
+    <>
+      <OfferModal opened={opened} onClose={close} offerTime={offerTime} />
+      <Stack>
+        <Box>
+          <DesktopNavbar heading="Find Customers" />
+          <Box pl="sm" pr="sm">
+            <Select
+              label="Sort by"
+              clearable
+              data={[
+                { value: "group-size", label: "Group Size" },
+                { value: "distance", label: "Distance" },
+                { value: "time-posted", label: "Time Posted" },
+              ]}
+              placeholder="Select sorting option"
+            />
+          </Box>
         </Box>
-      </Box>
-      <Box>
-        {loading ? (
-          <>
-            <Skeletons />
-            <Skeletons />
-            <Skeletons />
-            <Skeletons />
-            <Skeletons />
-          </>
-        ) : requests.length === 0 && !loading ? (
-          <Center>
-            <Stack>
-              <Text ta="center">No requests currently found.</Text>
-              <Text ta="center">
-                Don't worry, we are working hard to find more requests for you!
-              </Text>
-              <Center>
-                <Loader />
-              </Center>
-            </Stack>
-            <Box></Box>
-          </Center>
-        ) : requests.length === 0 ? (
-          <div>None!</div>
-        ) : (
-          requests.map((request) => (
-            <UserRequest key={request.id} customerRequest={request} />
-          ))
-        )}
-      </Box>
-    </Stack>
+        <Box>
+          {loading ? (
+            <>
+              <Skeletons />
+              <Skeletons />
+              <Skeletons />
+              <Skeletons />
+              <Skeletons />
+            </>
+          ) : requests.length === 0 && !loading ? (
+            <Center>
+              <Stack>
+                <Text ta="center">No requests currently found.</Text>
+                <Text ta="center">
+                  Don't worry, we are working hard to find more requests for
+                  you!
+                </Text>
+                <Center>
+                  <Loader />
+                </Center>
+              </Stack>
+              <Box></Box>
+            </Center>
+          ) : requests.length === 0 ? (
+            <div>None!</div>
+          ) : (
+            requests.map((request) => (
+              <UserRequest
+                onClick={() => handleOfferClick(request.preferred_time)}
+                key={request.id}
+                customerRequest={request}
+              />
+            ))
+          )}
+        </Box>
+      </Stack>
+    </>
   );
 };
 

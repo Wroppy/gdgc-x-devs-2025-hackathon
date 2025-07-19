@@ -1,4 +1,3 @@
-import React from "react";
 import type { CustomerRequest } from "../../types/CustomerRequest";
 import CustomerAvatar from "../../components/customer-avatar/CustomerAvatar";
 import { Accordion, Box, Button, Group, Text } from "@mantine/core";
@@ -7,9 +6,10 @@ import { Link } from "react-router";
 
 type Props = {
   customerRequest: CustomerRequest;
+  onClick: () => void;
 };
 
-const UserRequest = ({ customerRequest }: Props) => {
+const UserRequest = ({ customerRequest, onClick }: Props) => {
   // const placeholder = {
   //   name: "John Doe",
   //   group_size: 4,
@@ -79,8 +79,7 @@ const UserRequest = ({ customerRequest }: Props) => {
 
             <Group justify="flex-end">
               <Button 
-                component={Link}
-                to={`/restaurant/offer?date=${preferred_time}&request_id=${customerRequest.id}`}
+              onClick={onClick}
               variant="outline">Make an offer</Button>
             </Group>
           </Box>
