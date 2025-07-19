@@ -3,28 +3,41 @@ import { IconChevronLeft } from "@tabler/icons-react";
 import React from "react";
 import styles from "./offer-page.module.css";
 import OfferForm from "../../components/offer-form/OfferForm";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import supabase from "../../supabase-client";
+import { useAuth } from "../../contexts/AuthContext";
 
 const OfferPage = () => {
+  const [searchParams] = useSearchParams();
+  const requestId = searchParams.get("request_id");
+  const requestIdNumber = requestId ? parseInt(requestId, 10) : null;
+  const { user, role } = useAuth();
+  const requester = {
+    id: user?.id, // Default to 1 if not set
+    type: role || "restaurant_owner", // Default to restaurant_owner if not set
+    restaurantId: user?.restaurant_id, // Default to 1 if not set
+  };
+
+  console.log(requestId);
+  console.log("Requester:", requester);
+
   const handleSubmit = async ({
     whyChooseUs,
     photo,
     notes,
-    request_id,
   }: {
     whyChooseUs: string;
     photo: File | null;
     notes: string;
-    request_id: string;
   }) => {
     const { data, error } = await supabase
       .from("restaurant_offers")
       .insert({
-        request_id,
-        restaurant_id: 1,
+        request_id: requestIdNumber,
+        restaurant_id: requester.restaurantId,
         offer_message: whyChooseUs,
         food_images: photo ? [`public/${Date.now()}-${photo.name}`] : null,
+        additional_notes: notes,
       })
       .select()
       .single();
@@ -32,11 +45,14 @@ const OfferPage = () => {
       console.error("Error inserting offer:", error);
     }
 
+    console.log("Inserted offer:", data);
+    console.log("Inserted offer ID:", data?.id);
+
     const { error: e } = await supabase.from("messages").insert({
       offer_id: data?.id,
-      sender_type: "restaurant_owner",
+      sender_type: requester.type,
       is_message: true,
-      sender_id: 1,
+      sender_id: requester.id,
       content: whyChooseUs,
     });
     if (e) {
@@ -47,9 +63,9 @@ const OfferPage = () => {
       const { error: h } = await supabase.from("messages").insert({
         offer_id: data?.id,
         is_message: true,
-        sender_id: 1,
+        sender_id: requester.id,
         content: notes,
-        sender_type: "restaurant_owner",
+        sender_type: requester.type,
       });
       if (h) {
         console.error("Error inserting notes message:", h);
@@ -68,13 +84,13 @@ const OfferPage = () => {
           .from("restaurant-owner-image-url")
           .getPublicUrl(d.path).data.publicUrl;
         console.log("File uploaded successfully:", publicUrl);
-        const {error: a} = await supabase.from("messages").insert({
+        const { error: a } = await supabase.from("messages").insert({
           offer_id: data?.id,
           is_message: false,
-          sender_id: 1,
+          sender_id: requester.id,
           content: publicUrl,
-          sender_type: "restaurant_owner",
-        })
+          sender_type: requester.type,
+        });
         if (a) {
           console.error("Error inserting image message:", a);
         }

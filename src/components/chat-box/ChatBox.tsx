@@ -18,7 +18,7 @@ type Message = {
   id: number;
   offer_id: number;
   sender_id: number;
-  sender_type: "customer" | "restaurant";
+  sender_type: "customer" | "restaurant_owner";
   content: string;
   sent_at: string;
 };

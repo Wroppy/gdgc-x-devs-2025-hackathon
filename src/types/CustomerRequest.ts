@@ -1,8 +1,8 @@
 
 type CustomerRequest = {
+  id: number;
   name: string;
   group_size: number;
-  id: number;
   created_at: string;
   preferred_time: string;
   notes: string;

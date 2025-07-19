@@ -33,7 +33,7 @@ const Skeletons = () => {
   );
 };
 
-const FindRequestsPage = (props: Props) => {
+const FindRequestsPage = () => {
   const { user, role } = useAuth();
   const [loading, setLoading] = useState(true);
   console.log("User:", user);

@@ -1,8 +1,11 @@
 type Offer = {
-  name: string;
+  id?: number;
+  restaurantName: string;
   offerMessage: string;
-  avatarUrl: string;
-  
+  additionalInfo?: string;
+  imageUrl?: string[];
+  createdAt?: string;
+  restaurantImage?: string;
 };
 
 export { type Offer };

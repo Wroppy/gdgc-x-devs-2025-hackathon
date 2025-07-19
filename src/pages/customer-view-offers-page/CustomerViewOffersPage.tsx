@@ -8,15 +8,15 @@ import supabase from "../../supabase-client";
 const Skeletons = () => {
   const fakes = [
     {
-      name: "Chum Bucket",
+      restaurantName: "Chum Bucket",
       offerMessage: "Special discount and extra chum on your first order!",
-      avatarUrl: "/chum-bucket.png",
+      restaurantImage: "/chum-bucket.png",
     },
     {
-      name: "Gusteau's",
+      restaurantName: "Gusteau's",
       offerMessage:
         "At Gusteau's, anyone can cook - but only here can you taste the magic of Paris on a plate!",
-      avatarUrl: "/gusteaus.png",
+      restaurantImage: "/gusteaus.png",
     },
   ];
 
@@ -32,51 +32,103 @@ const Skeletons = () => {
 };
 
 const CustomerViewOffersPage = () => {
-  useEffect(() => {}, []);
-
   const [offers, setOffers] = useState<Offer[]>([]);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase
-      .from("restaurant_offers")
-      .select("*")
-      .then((response) => {
-        if (response.error) {
-          console.error("Error fetching offers:", response.error);
-        } else {
-          const parsed = response.data.map((offer) => ({
-            name: "Krusty Krab",
-            offerMessage: offer.offer_message,
-            avatarUrl: "/krusty-crab.png",
-          }));
-          setOffers((prev) => [...parsed, ...prev]);
-          setLoading(false);
-        }
-      });
+    const fetchOffers = async () => {
+      const { data, error } = await supabase.from("restaurant_offers").select(`
+          id,
+          offer_message,
+          additional_notes,
+          food_images,
+          expires_at,
+          created_at,
+          restaurant:restaurant_id (
+            name,
+            restaurant_image_url,
+            owner:owner_id (
+              name,
+              restaurant_owner_image_url
+            )
+          )
+        `);
+
+      if (error) {
+        console.error("Error fetching offers:", error);
+        return;
+      }
+
+      const parsed: Offer[] = (data || []).map((offer: any) => ({
+        id: offer.id,
+        restaurantName: offer.restaurant?.name ?? "Unknown",
+        offerMessage: offer.offer_message,
+        additionalInfo: offer.additional_notes ?? "",
+        imageUrl: offer.food_images ?? [],
+        createdAt: offer.created_at,
+        restaurantImage:
+          offer.restaurant?.restaurant_image_url ?? "/fallback.png",
+      }));
+
+      console.log("Fetched offers:", parsed);
+
+      setOffers(parsed);
+      setLoading(false);
+    };
+
+    fetchOffers();
 
     const channel = supabase
       .channel("realtime:restaurant_offers")
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "restaurant_offers" },
-        (payload) => {
-          const newOffer = {
-            name: "Krusty Krab",
-            offerMessage: payload.new.offer_message,
-            avatarUrl: "/krusty-crab.png",
+        async (payload) => {
+          const { data, error } = await supabase
+            .from("restaurant_offers")
+            .select(
+              `
+          id,
+          offer_message,
+          additional_notes,
+          food_images,
+          expires_at,
+          created_at,
+          restaurant:restaurant_id (
+            name,
+            restaurant_image_url,
+            owner:owner_id (
+              name,
+              restaurant_owner_image_url
+            )
+          )
+        `
+            )
+            .eq("id", payload.new.id)
+            .single();
+
+          if (error || !data) {
+            console.error("Failed to refetch new offer:", error);
+            return;
+          }
+
+          console.log(data.restaurant);
+
+          const newParsed: Offer = {
+            id: data.id,
+            restaurantName: data.restaurant?.name ?? "Unknown",
+            offerMessage: data.offer_message,
+            additionalInfo: data.additional_notes ?? "",
+            imageUrl: data.food_images ?? [],
+            createdAt: data.created_at,
+            restaurantImage:
+              data.restaurant?.restaurant_image_url ?? "/fallback.png",
           };
-          setOffers((prevOffers) => [newOffer, ...prevOffers]);
+
+          setOffers((prev) => [newParsed, ...prev]);
         }
       )
-      .subscribe((status, error) => {
-        if (error) {
-          console.error("Error subscribing to restaurant offers:", error);
-        } else {
-          console.log("Subscribed to restaurant offers channel");
-        }
-      });
+      .subscribe();
 
     return () => {
       supabase.removeChannel(channel);
@@ -84,30 +136,25 @@ const CustomerViewOffersPage = () => {
   }, []);
 
   useEffect(() => {
-    if (loading) {
-      // its showing some stuff
-      // Randomly add the fakes
-      return;
-    }
+    if (loading) return;
 
     const fakes = [
       {
-        name: "Chum Bucket",
+        restaurantName: "Chum Bucket",
         offerMessage: "Special discount and extra chum on your first order!",
-        avatarUrl: "/chum-bucket.png",
+        restaurantImage: "/chum-bucket.png",
       },
       {
-        name: "Gusteau's",
+        restaurantName: "Gusteau's",
         offerMessage:
           "At Gusteau's, anyone can cook - but only here can you taste the magic of Paris on a plate!",
-        avatarUrl: "/gusteaus.png",
+        restaurantImage: "/gusteaus.png",
       },
     ];
 
-    // Randomly add the fakes in random times
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < fakes.length; i++) {
       setTimeout(() => {
-        setOffers((prevOffers) => [fakes[i], ...prevOffers]);
+        setOffers((prev) => [fakes[i], ...prev]);
       }, Math.random() * 5000 + 500);
     }
   }, [loading]);
@@ -134,7 +181,7 @@ const CustomerViewOffersPage = () => {
           <Skeletons />
         ) : offers.length === 0 ? (
           <Stack justify="center" align="center">
-            <Text ta="center" display={"block"}>
+            <Text ta="center">
               Please wait a second while restaurants make their offers!
             </Text>
             <Loader />

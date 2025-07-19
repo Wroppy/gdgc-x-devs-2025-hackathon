@@ -28,6 +28,7 @@ export type User = {
   phone?: string;
   avatar_url?: string;
   restaurant_id?: number;
+  role?: "customer" | "restaurant_owner";
 };
 
 const LoginPage = (props: Props) => {
@@ -55,6 +56,7 @@ const LoginPage = (props: Props) => {
           email: customer.email,
           phone: customer.phone,
           avatar_url: customer.customer_image_url,
+          role: "customer",
         };
         navigate("/customer");
         setUser(fetchedCustomer);
@@ -74,6 +76,7 @@ const LoginPage = (props: Props) => {
           phone: owner.phone,
           avatar_url: owner.restaurant_owner_image_url,
           restaurant_id: owner.restaurant_id,
+          role: "restaurant_owner",
         };
         navigate("/restaurant");
         setUser(fetchedOwner);
