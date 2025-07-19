@@ -18,17 +18,7 @@ const RequestPage = (props: Props) => {
     notes: string;
   }) => {
     console.log("Request submitted:", data);
-    // Here you would typically send the data to your backend
-    let budgeRange;
-    if (data.budgetRange[1] < 40) {
-      budgeRange = "$";
-    }
-    if (data.budgetRange[1] >= 40 && data.budgetRange[1] < 80) {
-      budgeRange = "$$";
-    }
-    if (data.budgetRange[1] >= 80) {
-      budgeRange = "$$$";
-    }
+
 
     supabase
       .from("customer_requests")
@@ -39,9 +29,10 @@ const RequestPage = (props: Props) => {
           // location: data.location,
           preferred_cuisines: data.cuisine,
           preferred_vibes: data.mood,
-          budget: budgeRange,
-          // notes: data.notes,
+          notes: data.notes,
           preferred_time: data.time ? data.time.toISOString() : null,
+          budget_lower: data.budgetRange[0],
+          budget_upper: data.budgetRange[1],
         },
       ])
 
