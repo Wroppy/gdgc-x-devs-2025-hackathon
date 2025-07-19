@@ -16,7 +16,8 @@ import styles from "./request-form.module.css";
 import { IconMapPin, IconPin, IconTarget } from "@tabler/icons-react";
 
 const cuisineOptions = ["American", "Asian", "Italian", "Mexican", "Indian", "French"];
-const moodOptions = ["Casual", "Romantic", "Family", "Party", "Quiet"];
+const moodOptions = ["Casual", "Romantic", "Family", "Party", "Quiet",
+  "Business", "Outdoor", "Indoor", "Pet-friendly", "Vegan-friendly"];
 
 type Props = {
   onSubmit?: (data: {
@@ -42,7 +43,7 @@ const RequestForm = ({ onSubmit }: Props) => {
   const [date, setDate] = useState<Date | null>(new Date());
   const [groupSize, setGroupSize] = useState<number>(6);
   const [location, setLocation] = useState("");
-  const [cuisine, setCuisine] = useState<string[]>(["American"]);
+  const [cuisine, setCuisine] = useState<string[]>([]);
   const [mood, setMood] = useState<string[]>(["Casual"]);
   const [budgetRange, setBudgetRange] = useState<[number, number]>([10, 20]);
   const [notes, setNotes] = useState("");
