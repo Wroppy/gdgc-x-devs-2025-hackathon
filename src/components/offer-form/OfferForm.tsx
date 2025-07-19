@@ -18,8 +18,9 @@ import CustomerAvatar from "../customer-avatar/CustomerAvatar";
 type Props = {
   onSubmit: (data: {
     whyChooseUs: string;
-    photo: string; // This will be the image URL
+    photo: File | null; // This will be the image URL
     notes: string;
+    request_id: string;
   }) => Promise<void>;
 };
 
@@ -33,7 +34,6 @@ const OfferForm = ({ onSubmit }: Props) => {
         hour: "2-digit",
         minute: "2-digit",
       });
-      
     }
     return null;
   }, [searchParams]);
@@ -41,15 +41,15 @@ const OfferForm = ({ onSubmit }: Props) => {
   const [whyChooseUs, setWhyChooseUs] = useState("");
   const [notes, setNotes] = useState("");
   const [image, setImage] = useState<File | null>(null); // TODO: decide if we need this to send it to supabase
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const payload = {
       whyChooseUs,
-      photo: previewUrl ?? "",
+      photo: image, // This will be the image file
       notes,
+      request_id: searchParams.get("request_id") || "",
     };
     console.log("Form submitted:", payload);
     setUploading(true);
@@ -61,11 +61,13 @@ const OfferForm = ({ onSubmit }: Props) => {
     <form onSubmit={handleSubmit} className={styles.offerForm}>
       <Stack>
         <Group gap="sm">
-          <CustomerAvatar/> 
-          <Text size="xl" fw={500}>Patrick Star</Text>
+          <CustomerAvatar />
+          <Text size="xl" fw={500}>
+            Patrick Star
+          </Text>
         </Group>
         <Text size="sm" fw={500} mb={4}>
-          Date & time: {" "}<Text span>{offerTime || "Loading..."}</Text>
+          Date & time: <Text span>{offerTime || "Loading..."}</Text>
         </Text>
         <Text></Text>
         <Textarea
@@ -87,20 +89,11 @@ const OfferForm = ({ onSubmit }: Props) => {
           value={image}
           onChange={(file) => {
             setImage(file);
-            if (file) {
-              const reader = new FileReader();
-              reader.onloadend = () => {
-                setPreviewUrl(reader.result as string);
-              };
-              reader.readAsDataURL(file);
-            } else {
-              setPreviewUrl(null);
-            }
           }}
           accept="image/*"
           clearable
           disabled={uploading}
-          />
+        />
 
         <Textarea
           label="Additional notes (optional)"
@@ -112,7 +105,12 @@ const OfferForm = ({ onSubmit }: Props) => {
           disabled={uploading}
         />
 
-        <Button loading={uploading} fullWidth color="orange" onClick={handleSubmit}>
+        <Button
+          loading={uploading}
+          fullWidth
+          color="orange"
+          onClick={handleSubmit}
+        >
           Send offer
         </Button>
       </Stack>

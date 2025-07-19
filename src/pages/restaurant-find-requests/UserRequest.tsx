@@ -80,7 +80,7 @@ const UserRequest = ({ customerRequest }: Props) => {
             <Group justify="flex-end">
               <Button 
                 component={Link}
-                to={`/restaurant/offer?date=${preferred_time}`}
+                to={`/restaurant/offer?date=${preferred_time}&request_id=${customerRequest.id}`}
               variant="outline">Make an offer</Button>
             </Group>
           </Box>
