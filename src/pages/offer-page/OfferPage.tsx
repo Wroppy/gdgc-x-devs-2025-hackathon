@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Text, Title } from "@mantine/core";
+import { ActionIcon, Box, Text } from "@mantine/core";
 import { IconChevronLeft } from "@tabler/icons-react";
 import React from "react";
 import styles from "./offer-page.module.css";
@@ -6,7 +6,7 @@ import OfferForm from "../../components/offer-form/OfferForm";
 import { Link } from "react-router";
 import supabase from "../../supabase-client";
 
-const OfferPage = (props: Props) => {
+const OfferPage = () => {
   const handleSubmit = async ({
     whyChooseUs,
     photo,
@@ -33,7 +33,7 @@ const OfferPage = (props: Props) => {
     }
 
     const { error: e } = await supabase.from("messages").insert({
-      offer_id: data?.id as string,
+      offer_id: data?.id,
       sender_type: "restaurant_owner",
       is_message: true,
       sender_id: 1,
@@ -45,7 +45,7 @@ const OfferPage = (props: Props) => {
 
     if (notes) {
       const { error: h } = await supabase.from("messages").insert({
-        offer_id: data?.id as string,
+        offer_id: data?.id,
         is_message: true,
         sender_id: 1,
         content: notes,
@@ -56,7 +56,7 @@ const OfferPage = (props: Props) => {
       }
     }
     if (photo) {
-      const { data, error } = await supabase.storage
+      const { data: d, error } = await supabase.storage
         .from("restaurant-owner-image-url")
         .upload(`public/${Date.now()}-${photo.name}`, photo);
 
@@ -66,8 +66,18 @@ const OfferPage = (props: Props) => {
         // // Get the public URL of the uploaded file
         const publicUrl = supabase.storage
           .from("restaurant-owner-image-url")
-          .getPublicUrl(data.path).data.publicUrl;
+          .getPublicUrl(d.path).data.publicUrl;
         console.log("File uploaded successfully:", publicUrl);
+        const {error: a} = await supabase.from("messages").insert({
+          offer_id: data?.id,
+          is_message: false,
+          sender_id: 1,
+          content: publicUrl,
+          sender_type: "restaurant_owner",
+        })
+        if (a) {
+          console.error("Error inserting image message:", a);
+        }
       }
     }
   };

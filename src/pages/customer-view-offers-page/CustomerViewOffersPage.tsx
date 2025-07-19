@@ -1,18 +1,8 @@
-import {
-  Box,
-  Center,
-  Loader,
-  Select,
-  Skeleton,
-  Stack,
-  Text,
-} from "@mantine/core";
+import { Box, Loader, Select, Skeleton, Stack, Text } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import BottomNavBar from "../../layouts/BottomNavBar";
 import RestaurantOfferBox from "../../components/restaurant-offer-box/RestaurantOfferBox";
 import type { Offer } from "../../types/Offer";
-
-type Props = {};
 
 const Skeletons = () => {
   const fakes = [
@@ -40,7 +30,7 @@ const Skeletons = () => {
   );
 };
 
-const CustomerViewOffersPage = (props: Props) => {
+const CustomerViewOffersPage = () => {
   useEffect(() => {}, []);
 
   const [offers, setOffers] = useState<Offer[]>([]);
