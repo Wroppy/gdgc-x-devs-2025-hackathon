@@ -8,7 +8,7 @@ type Props = {};
 const FeedbackPage = (props: Props) => {
   return (
     <div className={styles.feedbackPage}>
-      <Box h="2.1rem" bg="orange" className={styles.feedbackPageHeader}>
+      <Box p="sm" bg="orange" className={styles.feedbackPageHeader}>
         <ActionIcon
           size="lg"
           variant="transparent"

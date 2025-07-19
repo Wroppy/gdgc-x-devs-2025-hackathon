@@ -50,7 +50,7 @@ const RequestPage = (props: Props) => {
 
   return (
     <div className={styles.requestPage}>
-      <Box h="2.1rem" bg="orange" className={styles.requestPageHeader}>
+      <Box p="sm" bg="orange" className={styles.requestPageHeader}>
         <ActionIcon
           component={Link}
           size="lg"
@@ -61,9 +61,11 @@ const RequestPage = (props: Props) => {
         >
           <IconChevronLeft size={24} />
         </ActionIcon>
-        <Text fw={500} c="white">
-          Request Form
-        </Text>
+        <Box>
+          <Text fw={500} c="white">
+            Send a request to become available for offers
+          </Text>
+        </Box>
       </Box>
       <Box flex={1} p="md">
         <RequestForm onSubmit={handleSubmit} />
