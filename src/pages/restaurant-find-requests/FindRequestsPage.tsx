@@ -7,14 +7,11 @@ import {
   Box,
   Center,
   Loader,
-  Progress,
   Select,
   Skeleton,
   Stack,
   Text,
 } from "@mantine/core";
-
-type Props = {};
 
 const Skeletons = () => {
   const placeholder = {

@@ -10,10 +10,10 @@ import customerAvatar from "../../public/patrick-star.png";
 import { Link, useLocation } from "react-router";
 
 type Props = {
-  notificationsCount?: number;
+  notifications?: number;
 };
 
-const BottomNavBar: React.FC = ({ notificationsCount = 0}: Props) => {
+const BottomNavBar = ({ notifications = 0}: Props) => {
   const location = useLocation();
   return (
     <Box style={{ width: "100%", height: "60px" }}>
@@ -56,13 +56,13 @@ const BottomNavBar: React.FC = ({ notificationsCount = 0}: Props) => {
           )}
         </ActionIcon>
         <Indicator
-          label={notificationsCount}
+          label={notifications}
           size={18}
           color="accent"
           position="top-end"
           offset={7}
           withBorder
-          disabled={notificationsCount === 0}
+          disabled={notifications === 0}
         >
           <ActionIcon
             variant="subtle"

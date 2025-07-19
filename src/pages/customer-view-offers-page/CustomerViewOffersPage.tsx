@@ -145,7 +145,7 @@ const CustomerViewOffersPage = () => {
           ))
         )}
       </Box>
-      <BottomNavBar />
+      <BottomNavBar notifications={offers.length} />
     </Stack>
   );
 };
