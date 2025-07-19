@@ -28,7 +28,7 @@ const LoginPage = (props: Props) => {
         </Button>
       </Stack>
       <Center>
-        <Text>
+        <Text ta="center">
           By clicking continue, you agree to our {" "} 
           <Text span c="accent" fw={500}>
             Terms of Service
