@@ -9,6 +9,8 @@ import {
 } from "@mantine/core";
 import React, { useState } from "react";
 import styles from "./review-form.module.css";
+import { useNavigate } from "react-router";
+import { Loader } from "@mantine/core";
 
 type Props = {};
 
@@ -37,9 +39,30 @@ const ReviewForm = (props: Props) => {
   const [tasteRating, setTasteRating] = useState(0);
   const [serviceRating, setServiceRating] = useState(0);
   const [accuracyRating, setAccuracyRating] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  setLoading(true);
+
+  // Change this if we need to send data to backend
+  setTimeout(() => {
+    setLoading(false);
+    setSubmitted(true);
+
+  // After 1 seconds, redirect to customer home page
+    setTimeout(() => {
+      navigate("/customer");
+    }, 1000);
+  }, 500);
+};
+
 
   return (
-    <form className={styles.reviewForm}>
+    <form className={styles.reviewForm} onSubmit={handleSubmit}>
       <Stack justify="space-between">
         <Stack>
           <LabelContainer
@@ -83,9 +106,19 @@ const ReviewForm = (props: Props) => {
           />
         </Stack>
 
+       {loading ? (
+        <Center>
+          <Loader color="orange" />
+        </Center>
+        ) : submitted ? (
+        <Text ta="center" c="green" fw={500}>
+          Your feedback has been submitted!
+        </Text>
+        ) : (
         <Button fullWidth color="orange" type="submit">
           Submit Review
         </Button>
+      )}
       </Stack>
     </form>
   );
