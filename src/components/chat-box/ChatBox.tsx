@@ -96,15 +96,24 @@ const ChatBox = ({ onSend, offerId }: Props) => {
 
   console.log(role); 
 
+  // 
+  
+
   return (
     <Stack p="md" className={styles.chatBox}>
       <Stack justify="flex-end" gap="xs" className={styles.messagesBox}>
         {messages.map((msg, i) => {
           const isSender = msg.sender_type === role;
           return isSender ? (
-            <SenderMessage key={i} content={msg.content} />
+            <SenderMessage key={i} content={msg.content} avatarUrl={
+              role === "restaurant_owner" ? "/krusty-crab.png" : "/patrick-star.png"
+            } />
           ) : (
-            <ReceiverMessage key={i} content={msg.content} />
+            <ReceiverMessage key={i} content={msg.content} 
+              avatarUrl={
+                role === "restaurant_owner" ? "/patrick-star.png" : "/krusty-crab.png"
+              }
+            />
           );
         })}
       </Stack>
