@@ -110,6 +110,7 @@ const ChatBox = ({ onSend, offerId }: Props) => {
       </Stack>
       <form onSubmit={handleSubmit} className={styles.inputForm}>
         <TextInput
+          autoComplete="off"
           disabled={loading}
           placeholder="Type your message here..."
           rightSection={
