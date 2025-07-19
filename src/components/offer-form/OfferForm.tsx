@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   FileButton,
+  FileInput,
   Group,
   Image,
   Stack,
@@ -41,7 +42,8 @@ const OfferForm = ({ onSubmit }: Props) => {
   const [notes, setNotes] = useState("");
   const [image, setImage] = useState<File | null>(null); // TODO: decide if we need this to send it to supabase
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
+  const [uploading, setUploading] = useState(false);
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const payload = {
@@ -50,7 +52,9 @@ const OfferForm = ({ onSubmit }: Props) => {
       notes,
     };
     console.log("Form submitted:", payload);
+    setUploading(true);
     await onSubmit?.(payload);
+    setUploading(false);
   };
 
   return (
@@ -61,51 +65,54 @@ const OfferForm = ({ onSubmit }: Props) => {
           <Text size="xl" fw={500}>Patrick Star</Text>
         </Group>
         <Text size="sm" fw={500} mb={4}>
-          Date & Time: {" "}<Text span>{offerTime || "Loading..."}</Text>
+          Date & time: {" "}<Text span>{offerTime || "Loading..."}</Text>
         </Text>
         <Text></Text>
         <Textarea
-          label="Why Choose Us?"
+          label="Why choose us?"
           placeholder="Reasons for why customer should choose your restaurant."
           value={whyChooseUs}
           onChange={(e) => setWhyChooseUs(e.target.value)}
           autosize
           required
           minRows={3}
+          disabled={uploading}
         />
 
         <Text size="sm" fw={500} mb={4}>
-          PHOTOS
+          Send a photo with your offer (optional)
         </Text>
-        <Group>
-          {previewUrl && <Image src={previewUrl} w={80} h={80} radius="sm" />}
-          <FileButton
-            onChange={(file) => {
-              if (file) {
-                setImage(file);
-                setPreviewUrl(URL.createObjectURL(file));
-              }
-            }}
-            accept="image/png,image/jpeg"
-          >
-            {(props) => (
-              <Button radius="xl" variant="default" {...props}>
-                +
-              </Button>
-            )}
-          </FileButton>
-        </Group>
+        <FileInput
+          placeholder="Upload a photo"
+          value={image}
+          onChange={(file) => {
+            setImage(file);
+            if (file) {
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                setPreviewUrl(reader.result as string);
+              };
+              reader.readAsDataURL(file);
+            } else {
+              setPreviewUrl(null);
+            }
+          }}
+          accept="image/*"
+          clearable
+          disabled={uploading}
+          />
 
         <Textarea
-          label="Additional Notes"
+          label="Additional notes (optional)"
           placeholder="Enter additional details to your offer here."
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           autosize
           minRows={3}
+          disabled={uploading}
         />
 
-        <Button fullWidth color="orange" onClick={handleSubmit}>
+        <Button loading={uploading} fullWidth color="orange" onClick={handleSubmit}>
           Send offer
         </Button>
       </Stack>
