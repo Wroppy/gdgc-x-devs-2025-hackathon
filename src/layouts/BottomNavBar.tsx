@@ -6,14 +6,17 @@ import {
   IconBell,
   IconSquarePlus,
 } from "@tabler/icons-react";
-import customerAvatar from "../../public/patrick-star.png";
 import { Link, useLocation } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
 
 type Props = {
   notifications?: number;
 };
 
-const BottomNavBar = ({ notifications = 0}: Props) => {
+const BottomNavBar = ({ notifications = 0 }: Props) => {
+  const user = useAuth();
+  const customerAvatar = user?.user?.avatar_url || "default-avatar.png"; // Fallback avatar
+
   const location = useLocation();
   return (
     <Box style={{ width: "100%", height: "60px" }}>

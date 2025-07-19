@@ -21,6 +21,16 @@ import { useAuth } from "../../contexts/AuthContext";
 
 type Props = {};
 
+export type User = {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string;
+  avatar_url?: string;
+  restaurant_id?: number;
+  role?: "customer" | "restaurant_owner";
+};
+
 const LoginPage = (props: Props) => {
   const navigate = useNavigate();
   const { setUser, setRole } = useAuth();
@@ -40,26 +50,43 @@ const LoginPage = (props: Props) => {
         .single();
 
       if (customer) {
+        const fetchedCustomer = {
+          id: customer.id,
+          name: customer.name,
+          email: customer.email,
+          phone: customer.phone,
+          avatar_url: customer.customer_image_url,
+          role: "customer",
+        };
         navigate("/customer");
-        setUser(customer);
+        setUser(fetchedCustomer);
         setRole("customer");
         showNotification({
           title: "Login successful",
-          message: `Welcome back, ${customer.name}!`,
+          message: `Welcome back, ${fetchedCustomer.name}!`,
           color: "green",
         });
-        console.log("User set to: ", customer);
+        console.log("User set to: ", fetchedCustomer);
         // Set user in AuthContext
       } else if (owner) {
+        const fetchedOwner = {
+          id: owner.id,
+          name: owner.name,
+          email: owner.email,
+          phone: owner.phone,
+          avatar_url: owner.restaurant_owner_image_url,
+          restaurant_id: owner.restaurant_id,
+          role: "restaurant_owner",
+        };
         navigate("/restaurant");
-        setUser(owner);
+        setUser(fetchedOwner);
         setRole("restaurant_owner");
         showNotification({
           title: "Login successful",
-          message: `Welcome back, ${owner.name}!`,
+          message: `Welcome back, ${fetchedOwner.name}!`,
           color: "green",
         });
-        console.log("User set to: ", owner);
+        console.log("User set to: ", fetchedOwner);
       } else {
         showNotification({
           title: "Login failed",

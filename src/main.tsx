@@ -43,7 +43,7 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/login" element={<LoginPage />} />
               <Route path="customer">
                 <Route index element={<CustomerHomePage />} />
-                <Route path="chat" element={<CustomerChatPage />} />
+                <Route path="chat/:offerId" element={<CustomerChatPage />} />
                 <Route path="request" element={<Request />} />
                 <Route path="feedback" element={<FeedbackPage />} />
                 <Route path="offers" element={<CustomerViewOffersPage />} />
@@ -52,6 +52,7 @@ createRoot(document.getElementById("root")!).render(
                 <Route index element={<RestaurantHomePage />} />
                 <Route path="find" element={<FindRequestsPage />} />
                 <Route path="offer" element={<OfferPage />} />
+                <Route path="chat/:offerId" element={<CustomerChatPage />} />
               </Route>
             </Route>
           </Routes>

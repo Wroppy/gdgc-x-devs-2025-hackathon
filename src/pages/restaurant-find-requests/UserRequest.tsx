@@ -18,6 +18,7 @@ const UserRequest = ({ customerRequest }: Props) => {
   //   preferred_time: new Date().toISOString(),
   // };
   const {
+    id,
     group_size,
     created_at,
     preferred_time,
@@ -78,10 +79,13 @@ const UserRequest = ({ customerRequest }: Props) => {
             </Text>
 
             <Group justify="flex-end">
-              <Button 
+              <Button
                 component={Link}
                 to={`/restaurant/offer?date=${preferred_time}&request_id=${customerRequest.id}`}
-              variant="outline">Make an offer</Button>
+                variant="outline"
+              >
+                Make an offer
+              </Button>
             </Group>
           </Box>
         </Accordion.Panel>

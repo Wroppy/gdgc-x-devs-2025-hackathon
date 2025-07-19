@@ -1,12 +1,10 @@
-//NOTE: The file contains hardcoded values for demonstration purposes.
-// Once you are able to get user data from the auth context, you can replace these hardcoded values with dynamic ones.
-
 import { ActionIcon, Box, Stack, TextInput } from "@mantine/core";
 import React, { useEffect, useState, type FormEvent } from "react";
 import styles from "./chat-box.module.css";
 import { IconSend } from "@tabler/icons-react";
 import { ReceiverMessage, SenderMessage } from "./ChatMessages";
 import supabase from "../../supabase-client";
+import { useAuth } from "../../contexts/AuthContext";
 
 type Props = {
   onSend: (message: string) => Promise<void>;
@@ -17,7 +15,7 @@ type Message = {
   id: number;
   offer_id: number;
   sender_id: number;
-  sender_type: "customer" | "restaurant";
+  sender_type: "customer" | "restaurant_owner";
   content: string;
   sent_at: string;
 };
@@ -27,17 +25,14 @@ const ChatBox = ({ onSend, offerId }: Props) => {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
 
-  // Hardcoded customer ID
-  const CUSTOMER_ID = 1;
-  const RESTAURANT_OWNER_ID = 9;
-  const OFFER_ID = 2;
+  const { user, role } = useAuth(); // Includes user.id and role
 
   useEffect(() => {
     const fetchMessages = async () => {
       const { data, error } = await supabase
         .from("messages")
         .select("*")
-        .eq("offer_id", OFFER_ID)
+        .eq("offer_id", offerId)
         .order("sent_at", { ascending: true });
 
       if (error) {
@@ -46,7 +41,6 @@ const ChatBox = ({ onSend, offerId }: Props) => {
         const transformed = (data || [])
           .map(transformToMessage)
           .filter(Boolean);
-        console.log("Fetched messages:", transformed);
         setMessages(transformed as Message[]);
       }
     };
@@ -61,16 +55,17 @@ const ChatBox = ({ onSend, offerId }: Props) => {
           event: "INSERT",
           schema: "public",
           table: "messages",
-          filter: `offer_id=eq.${OFFER_ID}`,
+          filter: `offer_id=eq.${offerId}`,
         },
         (payload) => {
-          const newMessage = payload.new;
-          setMessages((prev) => [...prev, newMessage as Message]);
+          const newMessage = transformToMessage(payload.new);
+          if (newMessage) {
+            setMessages((prev) => [...prev, newMessage]);
+          }
         }
       )
       .subscribe();
 
-    // ✅ Cleanup on unmount
     return () => {
       supabase.removeChannel(channel);
     };
@@ -83,17 +78,17 @@ const ChatBox = ({ onSend, offerId }: Props) => {
     setLoading(true);
 
     const { error } = await supabase.from("messages").insert({
-      offer_id: OFFER_ID,
-      sender_type: "restaurant_owner",
-      sender_id: RESTAURANT_OWNER_ID,
+      offer_id: offerId,
+      sender_type: role, // "customer" or "restaurant_owner"
+      sender_id: user?.id,
       content: message,
     });
 
     if (error) {
       console.error("Send error:", error);
     } else {
-      setMessage(""); // Clear input only on success
-      await onSend(message); // Optional, for any side-effects like logging
+      setMessage("");
+      await onSend(message); // Optional callback
     }
 
     setLoading(false);
@@ -103,7 +98,7 @@ const ChatBox = ({ onSend, offerId }: Props) => {
     <Stack p="md" className={styles.chatBox}>
       <Stack justify="flex-end" gap="xs" className={styles.messagesBox}>
         {messages.map((msg, i) => {
-          const isSender = msg.sender_type === "customer";
+          const isSender = msg.sender_type === role;
           return isSender ? (
             <SenderMessage key={i} content={msg.content} />
           ) : (
@@ -114,7 +109,7 @@ const ChatBox = ({ onSend, offerId }: Props) => {
       <form onSubmit={handleSubmit} className={styles.inputForm}>
         <TextInput
           disabled={loading}
-          placeholder={"Type your message here..."}
+          placeholder="Type your message here..."
           rightSection={
             <ActionIcon
               loading={loading}

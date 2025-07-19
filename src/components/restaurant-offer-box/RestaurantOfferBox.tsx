@@ -7,15 +7,20 @@ import { IconChevronRight } from "@tabler/icons-react";
 type Props = { offer: Offer };
 
 const RestaurantOfferBox = ({ offer }: Props) => {
-  const { name, offerMessage, avatarUrl } = offer;
+  const { restaurantName, offerMessage, restaurantImage } = offer;
   return (
     <div className={styles.restaurantOfferBox}>
       <Indicator offset={7} color="accent" size={16}>
-        <Avatar size="lg" radius="xl" src={avatarUrl} alt={name} />
+        <Avatar
+          size="lg"
+          radius="xl"
+          src={restaurantImage}
+          alt={restaurantName}
+        />
       </Indicator>
       <Box>
         <Text size="xl" fw={500}>
-          {name}
+          {restaurantName}
         </Text>
         <Text span>{offerMessage}</Text>
       </Box>

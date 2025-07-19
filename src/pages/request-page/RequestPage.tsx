@@ -5,11 +5,17 @@ import styles from "./request-page.module.css";
 import RequestForm from "../../components/request-form/RequestForm";
 import { Link, useNavigate } from "react-router";
 import supabase from "../../supabase-client";
+import { useAuth } from "../../contexts/AuthContext";
 
 type Props = {};
 
 const RequestPage = (props: Props) => {
   const navigate = useNavigate();
+  const { user, role } = useAuth();
+  const requester = {
+    id: user?.id, // Default to 1 if not set
+    type: role || "customer", // Default to customer if not set
+  };
 
   const handleSubmit = async (data: {
     time: Date | null;
@@ -26,7 +32,7 @@ const RequestPage = (props: Props) => {
       .from("customer_requests")
       .insert([
         {
-          customer_id: "1",
+          customer_id: requester.id,
           group_size: data.groupSize,
           // location: data.location,
           preferred_cuisines: data.cuisine,
