@@ -1,5 +1,5 @@
 import { ActionIcon, Box, Text } from "@mantine/core";
-import { IconArrowLeft } from "@tabler/icons-react";
+import { IconChevronLeft } from "@tabler/icons-react";
 import React from "react";
 import styles from "./feedback-page.module.css";
 import ReviewForm from "../../components/review-form/ReviewForm";
@@ -14,9 +14,9 @@ const FeedbackPage = (props: Props) => {
           variant="transparent"
           className={styles.backButton}
         >
-          <IconArrowLeft color="black" size={20} />
+          <IconChevronLeft color="white" size={24}  />
         </ActionIcon>
-        <Text>Feedback Form</Text>
+        <Text c="white" fw={500}>Feedback Form</Text>
       </Box>
       <Box flex={1} p="md">
         <ReviewForm />

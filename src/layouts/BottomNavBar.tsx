@@ -6,6 +6,7 @@ import {
   IconBell,
   IconSquarePlus,
 } from '@tabler/icons-react';
+import customerAvatar from '../../public/patrick-star.png';
 
 const BottomNavBar: React.FC = () => {
   return (
@@ -40,7 +41,7 @@ const BottomNavBar: React.FC = () => {
         </ActionIcon>
 
       <Avatar
-        src="https://i.pravatar.cc/150?img=5"
+        src={customerAvatar}
         radius="xl"
         size={35}
       />
