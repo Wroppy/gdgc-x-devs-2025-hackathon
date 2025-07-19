@@ -117,13 +117,13 @@ const CustomerViewOffersPage = () => {
 
           const newParsed: Offer = {
             id: data.id,
-            restaurantName: data.restaurant?.name ?? "Unknown",
+            restaurantName: data.restaurant[0]?.name ?? "Unknown",
             offerMessage: data.offer_message,
             additionalInfo: data.additional_notes ?? "",
             imageUrl: data.food_images ?? [],
             createdAt: data.created_at,
             restaurantImage:
-              data.restaurant?.restaurant_image_url ?? "/fallback.png",
+              data.restaurant[0]?.restaurant_image_url ?? "/fallback.png",
           };
 
           setOffers((prev) => [newParsed, ...prev]);
