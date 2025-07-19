@@ -19,6 +19,7 @@ import NotFoundPage from "./pages/not-found-page/NotFoundPage.tsx";
 import FeedbackPage from "./pages/feedback-page/FeedbackPage.tsx";
 import LoginPage from "./pages/login-page/LoginPage.tsx";
 import CustomerHomePage from "./pages/customer-home-page/CustomerHomePage.tsx";
+import MessagesContainter from "./components/messages-container/MessagesContainer.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -33,7 +34,11 @@ createRoot(document.getElementById("root")!).render(
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/feedback" element={<FeedbackPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/customer" element={<CustomerHomePage />} />
+            <Route path="/customer" >
+              <Route index element={<CustomerHomePage />} />
+              <Route path="messages" element={<MessagesContainter />} />
+
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
