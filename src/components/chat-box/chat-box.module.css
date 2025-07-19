@@ -15,3 +15,21 @@
 .rightSection {
   display: flex;
 }
+
+
+.senderMessage, .receiverMessage { 
+  display: flex;
+  border-radius: 1rem;
+}
+
+
+.receiverMessage {
+
+}
+.senderMessage {
+}
+.message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

@@ -1,4 +1,4 @@
-import { ActionIcon, Box, TextInput } from "@mantine/core";
+import { ActionIcon, Box, Stack, TextInput } from "@mantine/core";
 import React, { useState, type FormEvent } from "react";
 import styles from "./chat-box.module.css";
 import {
@@ -7,6 +7,8 @@ import {
   IconPhoto,
   IconSend,
 } from "@tabler/icons-react";
+import messages from "../../dummy-data/dummy-messages";
+import { ReceiverMessage, SenderMessage } from "./ChatMessages";
 
 const RightSection = ({ onClick }: { onClick: (e: FormEvent) => void }) => {
   return <div className={styles.rightSection}></div>;
@@ -28,15 +30,31 @@ const ChatBox = ({ onSend }: Props) => {
     setLoading(false);
   };
 
+  const USER_ID = "alice123"
+
   return (
-    <Box p="md" className={styles.chatBox}>
-      <div className={styles.messagesBox}></div>
+    <Stack p="md" className={styles.chatBox}>
+      <Stack justify="flex-end" gap="xs" className={styles.messagesBox}>
+        {messages.map((msg) => {
+          const isSender = msg.senderId === USER_ID;
+          return isSender ? (
+            <SenderMessage key={msg.id} content={msg.content} />
+          ) : (
+            <ReceiverMessage key={msg.id} content={msg.content} />
+          );
+        })}
+      </Stack>
       <form onSubmit={onSubmit} className={styles.inputForm}>
         <TextInput
           disabled={loading}
           placeholder={"Type your message here..."}
           rightSection={
-            <ActionIcon loading={loading} type="submit" variant="transparent" size="lg">
+            <ActionIcon
+              loading={loading}
+              type="submit"
+              variant="transparent"
+              size="lg"
+            >
               <IconSend />
             </ActionIcon>
           }
@@ -44,7 +62,7 @@ const ChatBox = ({ onSend }: Props) => {
           onChange={(e) => setMessage(e.target.value)}
         />
       </form>
-    </Box>
+    </Stack>
   );
 };
 
