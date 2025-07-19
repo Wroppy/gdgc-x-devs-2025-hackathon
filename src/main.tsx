@@ -19,6 +19,7 @@ import NotFoundPage from "./pages/not-found-page/NotFoundPage.tsx";
 import FeedbackPage from "./pages/feedback-page/FeedbackPage.tsx";
 import LoginPage from "./pages/login-page/LoginPage.tsx";
 import CustomerHomePage from "./pages/customer-home-page/CustomerHomePage.tsx";
+import CustomerChatPage from "./pages/customer-chat-page/CustomerChatPage.tsx";
 import { showNotification } from "@mantine/notifications";
 import { AuthProvider } from "./contexts/AuthContext.tsx";
 import Test from "./pages/Test.tsx";
@@ -41,8 +42,9 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/login" element={<LoginPage />} />
               <Route path="customer">
                 <Route index element={<CustomerHomePage />} />
-                <Route path="feedback" element={<FeedbackPage />} />
+                <Route path="chat" element={<CustomerChatPage />} />
                 <Route path="request" element={<Request />} />
+                <Route path="feedback" element={<FeedbackPage />} />
               </Route>
               <Route path="/restaurant">
                 <Route index element={<RestaurantHomePage />} />
