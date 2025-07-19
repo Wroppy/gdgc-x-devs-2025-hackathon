@@ -94,11 +94,13 @@ const ChatBox = ({ onSend, offerId }: Props) => {
     setLoading(false);
   };
 
+  console.log(role); 
+
   return (
     <Stack p="md" className={styles.chatBox}>
       <Stack justify="flex-end" gap="xs" className={styles.messagesBox}>
         {messages.map((msg, i) => {
-          const isSender = msg.sender_type !== role;
+          const isSender = msg.sender_type === role;
           return isSender ? (
             <SenderMessage key={i} content={msg.content} />
           ) : (

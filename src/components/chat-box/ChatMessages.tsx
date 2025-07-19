@@ -15,7 +15,7 @@ const imageStart = `${
   import.meta.env.VITE_SUPABASE_URL
 }/storage/v1/object/public`;
 
-const SenderMessage = ({ content, avatarUrl }: SenderMessageProps) => {
+const ReceiverMessage = ({ content, avatarUrl }: RecipientMessageProps) => {
   return (
     <div className={styles.message}>
       <Avatar />
@@ -35,7 +35,7 @@ const SenderMessage = ({ content, avatarUrl }: SenderMessageProps) => {
   );
 };
 
-const ReceiverMessage = ({ content, avatarUrl }: RecipientMessageProps) => {
+const SenderMessage = ({ content, avatarUrl }: SenderMessageProps) => {
   return (
     <div className={styles.message}>
       <Box flex={1} />
