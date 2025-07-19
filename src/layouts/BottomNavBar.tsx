@@ -1,50 +1,49 @@
-import React from 'react';
-import { Box, Center, Avatar, Indicator, ActionIcon } from '@mantine/core';
+import React from "react";
+import { Box, Center, Avatar, Indicator, ActionIcon } from "@mantine/core";
 import {
   IconHome2,
   IconSearch,
   IconBell,
   IconSquarePlus,
-} from '@tabler/icons-react';
-import customerAvatar from '../../public/patrick-star.png';
+} from "@tabler/icons-react";
+import customerAvatar from "../../public/patrick-star.png";
 
 const BottomNavBar: React.FC = () => {
   return (
-    <Box
-      style={{
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 60,
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        zIndex: 1000,
-        boxShadow: '0 -1px 3px rgba(0, 0, 0, 0.1)',
-      }}
-    >
-      <ActionIcon variant="subtle" size="lg">
-        <IconHome2 color="black" size={30} />
-      </ActionIcon>
-
-      <ActionIcon variant="subtle" size="lg">
-        <IconSearch color="black" size={30} />
-      </ActionIcon>
-
-      <ActionIcon variant="subtle" size="lg">
-        <IconSquarePlus color="black" size={30} />
-      </ActionIcon>
-      
-      <ActionIcon variant="subtle" size="lg">
-        <IconBell color="black" size={30} />
+    <Box style={{ width: "100%", height: "60px" }}>
+      <Box
+        style={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "60px",
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center",
+          zIndex: 1000,
+          boxShadow: "0 -1px 3px rgba(0, 0, 0, 0.1)",
+          backgroundColor: "white",
+        }}
+      >
+        <ActionIcon variant="subtle" size="lg">
+          <IconHome2 color="black" size={30} />
         </ActionIcon>
 
-      <Avatar
-        src={customerAvatar}
-        radius="xl"
-        size={35}
-      />
+        <ActionIcon variant="subtle" size="lg">
+          <IconSearch color="black" size={30} />
+        </ActionIcon>
+
+        <ActionIcon variant="subtle" size="lg">
+          <IconSquarePlus color="black" size={30} />
+        </ActionIcon>
+
+        <ActionIcon variant="subtle" size="lg">
+          <IconBell color="black" size={30} />
+        </ActionIcon>
+
+        <Avatar src={customerAvatar} radius="xl" size={35} />
+      </Box>
     </Box>
   );
 };
@@ -57,6 +56,5 @@ const BottomNavBar: React.FC = () => {
         </ActionIcon>
       </Indicator>
 */
-
 
 export default BottomNavBar;
