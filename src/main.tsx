@@ -20,6 +20,8 @@ import FeedbackPage from "./pages/feedback-page/FeedbackPage.tsx";
 import LoginPage from "./pages/login-page/LoginPage.tsx";
 import CustomerHomePage from "./pages/customer-home-page/CustomerHomePage.tsx";
 import CustomerChatPage from "./pages/customer-chat-page/CustomerChatPage.tsx";
+import Test from "./pages/Test.tsx";
+import Request from "./pages/request-page/RequestPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -36,6 +38,8 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/login" element={<LoginPage />} />
             <Route path="/customer" element={<CustomerHomePage />} />
             <Route path="/customer-chat" element={<CustomerChatPage />} />
+            <Route path="/test" element={<Test />} />
+            <Route path="/request" element={<Request />} />
           </Route>
         </Routes>
       </BrowserRouter>

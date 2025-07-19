@@ -83,7 +83,7 @@ const ReviewForm = (props: Props) => {
           />
         </Stack>
 
-        <Button fullWidth color="accent" type="submit">
+        <Button fullWidth color="orange" type="submit">
           Submit Review
         </Button>
       </Stack>
