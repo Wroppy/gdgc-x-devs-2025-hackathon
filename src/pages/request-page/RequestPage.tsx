@@ -1,5 +1,5 @@
 import { ActionIcon, Box, Title } from "@mantine/core";
-import { IconArrowLeft } from "@tabler/icons-react";
+import { IconChevronLeft } from "@tabler/icons-react";
 import React from "react";
 import styles from "./request-page.module.css";
 import RequestForm from "../../components/request-form/RequestForm";
@@ -15,7 +15,7 @@ const RequestPage = (props: Props) => {
           color="white"
           className={styles.backButton}
         >
-            <IconArrowLeft size={20} />
+            <IconChevronLeft size={24} />
         </ActionIcon>
         <Title order={3} c="white">
             Request Form

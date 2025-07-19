@@ -118,7 +118,7 @@ const RequestForm = () => {
                     />
 
                     <Button type="submit" color="orange">
-                        Send Request
+                        Send the Request
                     </Button>
                 </Stack>
             </form>
