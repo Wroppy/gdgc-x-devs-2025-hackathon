@@ -2,7 +2,6 @@ import type { CustomerRequest } from "../../types/CustomerRequest";
 import CustomerAvatar from "../../components/customer-avatar/CustomerAvatar";
 import { Accordion, Box, Button, Group, Text } from "@mantine/core";
 import styles from "./resturant-find-requests.module.css";
-import { Link } from "react-router";
 
 type Props = {
   customerRequest: CustomerRequest;

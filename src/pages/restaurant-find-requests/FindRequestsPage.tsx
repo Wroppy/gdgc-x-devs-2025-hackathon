@@ -7,7 +7,6 @@ import {
   Box,
   Center,
   Loader,
-  Modal,
   Select,
   Skeleton,
   Stack,
@@ -32,7 +31,7 @@ const Skeletons = () => {
   };
   return (
     <Skeleton>
-      <UserRequest customerRequest={placeholder} />
+      <UserRequest onClick={() => {}} customerRequest={placeholder} />
     </Skeleton>
   );
 };
