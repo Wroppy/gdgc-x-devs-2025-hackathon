@@ -7,6 +7,21 @@ import { Link } from "react-router";
 type Props = {};
 
 const RequestPage = (props: Props) => {
+  const handleSubmit = async (data: {
+    time: Date | null;
+    groupSize: number;
+    location: string;
+    cuisine: string[];
+    mood: string[];
+    budgetRange: [number, number];
+    notes: string;
+  }) => {
+    console.log("Request submitted:", data);
+    // Here you would typically send the data to your backend
+
+    
+  };
+
   return (
     <div className={styles.requestPage}>
       <Box h="2.1rem" bg="orange" className={styles.requestPageHeader}>
@@ -15,20 +30,18 @@ const RequestPage = (props: Props) => {
           size="lg"
           variant="transparent"
           color="white"
-          className={styles.backButton} to={"/customer"}        >
-            <IconChevronLeft size={24} />
+          className={styles.backButton}
+          to={"/customer"}
+        >
+          <IconChevronLeft size={24} />
         </ActionIcon>
-        <Text c="white">
-            Request Form
-        </Text>
-    </Box>
-    <Box flex={1} p="md">
-        <RequestForm />
-    </Box>
+        <Text c="white">Request Form</Text>
+      </Box>
+      <Box flex={1} p="md">
+        <RequestForm onSubmit={handleSubmit} />
+      </Box>
     </div>
   );
 };
 
 export default RequestPage;
-
-
