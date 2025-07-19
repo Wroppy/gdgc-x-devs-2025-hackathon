@@ -15,6 +15,7 @@ import {
 import DesktopNavbar from "../../components/desktop-navbar/DesktopNavbar";
 import OfferModal from "./OfferModal";
 import { useDisclosure } from "@mantine/hooks";
+import type { Status } from "../../types/Status";
 
 const Skeletons = () => {
   const placeholder = {
@@ -31,7 +32,11 @@ const Skeletons = () => {
   };
   return (
     <Skeleton>
-      <UserRequest onClick={() => {}} customerRequest={placeholder} />
+      <UserRequest
+        onClick={() => {}}
+        customerRequest={placeholder}
+        status="awaiting"
+      />
     </Skeleton>
   );
 };
@@ -80,25 +85,72 @@ const FindRequestsPage = () => {
     };
   }, []);
 
-  const [opened, { open, close }] = useDisclosure(true);
-  const [offerTime, setOfferTime] = useState("");
+  const [openedRequest, setOpenedRequest] = useState<CustomerRequest | null>(
+    null
+  );
+  const [opened, { open, close }] = useDisclosure(false);
 
-  const handleOfferClick = (time: string) => {
-    setOfferTime(
-      new Date(time).toLocaleTimeString([], {
-        hour: "2-digit",
-
-        minute: "2-digit",
-      })
-    );
+  const handleOfferClick = (request: CustomerRequest) => {
+    setOpenedRequest(request);
     open();
   };
 
+  const [statuses, setStatuses] = useState<{
+    [key: string]: Status;
+  }>({});
+
   // Subscribed to get status
+  useEffect(() => {
+    const channel = supabase
+      .channel("realtime:restaurant_offers")
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "restaurant_offers",
+        },
+        (payload) => {
+          const updatedOffer = payload.new as {
+            request_id: string;
+            status: Status;
+          };
+          setStatuses((prev) => ({
+            ...prev,
+            [updatedOffer.request_id]: updatedOffer.status,
+          }));
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  const onModalSubmit = (id: string) => {
+    console.log(id, statuses)
+    setStatuses((prev) => ({
+      ...prev,
+      [id]: "sent",
+    }));
+    console.log(statuses)
+  };
 
   return (
     <>
-      <OfferModal opened={opened} onClose={close} offerTime={offerTime} />
+      <OfferModal
+        onSubmit={onModalSubmit}
+        request={openedRequest || ({ id: 1 } as CustomerRequest)}
+        opened={opened}
+        onClose={close}
+        offerTime={new Date(
+          openedRequest?.preferred_time || ""
+        ).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
+      />
       <Stack>
         <Box>
           <DesktopNavbar heading="Find Customers" />
@@ -143,8 +195,9 @@ const FindRequestsPage = () => {
           ) : (
             requests.map((request) => (
               <UserRequest
-                onClick={() => handleOfferClick(request.preferred_time)}
+                onClick={() => handleOfferClick(request)}
                 key={request.id}
+                status={statuses[request.id] || "awaiting"}
                 customerRequest={request}
               />
             ))

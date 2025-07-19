@@ -23,9 +23,10 @@ type Props = {
     request_id: string;
   }) => Promise<void>;
   offerTime?: string;
+  reqId: string; // Optional, if you need to pass a specific request ID
 };
 
-const OfferForm = ({ onSubmit, offerTime = "" }: Props) => {
+const OfferForm = ({reqId, onSubmit, offerTime = "" }: Props) => {
   const [searchParams] = useSearchParams();
 
   const [whyChooseUs, setWhyChooseUs] = useState("");
@@ -39,7 +40,7 @@ const OfferForm = ({ onSubmit, offerTime = "" }: Props) => {
       whyChooseUs,
       photo: image, // This will be the image file
       notes,
-      request_id: searchParams.get("request_id") || "",
+      request_id: reqId,
     };
     console.log("Form submitted:", payload);
     setUploading(true);

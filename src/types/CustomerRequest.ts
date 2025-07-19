@@ -1,3 +1,4 @@
+import type { Status } from "./Status";
 
 type CustomerRequest = {
   name: string;

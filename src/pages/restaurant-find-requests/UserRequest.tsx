@@ -2,16 +2,16 @@ import type { CustomerRequest } from "../../types/CustomerRequest";
 import CustomerAvatar from "../../components/customer-avatar/CustomerAvatar";
 import { Accordion, Box, Button, Group, Text } from "@mantine/core";
 import styles from "./resturant-find-requests.module.css";
+import type { Status } from "../../types/Status";
 
 type Props = {
   customerRequest: CustomerRequest;
-  onClick: () => void;
-  status?: Status; 
+  onClick: (req: CustomerRequest) => void;
+  status?: Status;
 };
 
-type Status = "awaiting" | "sent" | "accepted" | "rejected";
 
-const UserRequest = ({ customerRequest, onClick, status="awaiting" }: Props) => {
+const UserRequest = ({ customerRequest, onClick, status }: Props) => {
   // const placeholder = {
   //   name: "John Doe",
   //   group_size: 4,
@@ -100,8 +100,8 @@ const UserRequest = ({ customerRequest, onClick, status="awaiting" }: Props) => 
 
             <Group justify="flex-end">
               <Button 
-                disabled={status !== "awaiting"}
-              onClick={onClick}
+                disabled={status !== "awaiting" && status != null}
+              onClick={() => onClick(customerRequest)}
               variant="outline">{buttonText}</Button>
             </Group>
           </Box>

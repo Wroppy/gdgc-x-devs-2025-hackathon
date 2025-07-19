@@ -3,18 +3,23 @@ import React from "react";
 import OfferForm from "../../components/offer-form/OfferForm";
 import supabase from "../../supabase-client";
 import { notifications } from "@mantine/notifications";
+import type { CustomerRequest } from "../../types/CustomerRequest";
 
 type Props = {
   opened: boolean;
   onClose: () => void;
   offerTime: string;
+  request: CustomerRequest;
+  onSubmit: (id: string) => void; // Callback when the offer is submitted
   // Add any other props you need for the modal
 };
 
 const OfferModal = ({
+  onSubmit,
   opened,
   onClose,
   offerTime,
+  request,
 }: // Add any other props you need for the modal
 Props) => {
   const handleSubmit = async ({
@@ -35,6 +40,7 @@ Props) => {
         restaurant_id: 1,
         offer_message: whyChooseUs,
         food_images: photo ? [`public/${Date.now()}-${photo.name}`] : null,
+        status: "sent",
       })
       .select()
       .single();
@@ -96,11 +102,16 @@ Props) => {
       message: "Your offer has been submitted to Patrick Star.",
       color: "green",
     });
+    onSubmit(request_id); // Call the onSubmit callback if provided
   };
 
   return (
     <Modal title="Make an Offer" opened={opened} onClose={onClose}>
-      <OfferForm onSubmit={handleSubmit} offerTime={offerTime} />
+      <OfferForm
+        reqId={request.id.toString()}
+        onSubmit={handleSubmit}
+        offerTime={offerTime}
+      />
     </Modal>
   );
 };
