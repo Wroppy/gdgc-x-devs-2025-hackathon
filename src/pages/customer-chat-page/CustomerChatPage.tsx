@@ -3,6 +3,7 @@ import ChatBox from "../../components/chat-box/ChatBox";
 import ChatBoxHeader from "../../components/chat-box/ChatBoxHeader";
 import { Box, Button, Group, stylesToString } from "@mantine/core";
 import OfferAcceptedComponent from "../../components/offer-accepted-component/OfferAcceptedComponent";
+import { useAuth } from "../../contexts/AuthContext";
 
 type Props = {};
 
@@ -14,15 +15,18 @@ const CustomerChatPage = (props: Props) => {
   };
 
   const [openOffer, setOpenOffer] = useState(false);
+  const { user, role } = useAuth();
+
+  const offerId = 2;
 
   const sender = {
-    name: "Restuarant name placeholder",
-    url: "https://example.com/restaurant-logo.png",
+    name: user.name,
+    url: user.avatar_url,
   };
 
   const acceptOffer = () => {
     setOpenOffer(true);
-  }
+  };
 
   return (
     <div
@@ -31,19 +35,23 @@ const CustomerChatPage = (props: Props) => {
         flexDirection: "column",
       }}
     >
-      {
-        openOffer && (
-          <OfferAcceptedComponent />
-        )
-      }
+      {openOffer && <OfferAcceptedComponent />}
       <ChatBoxHeader name={sender.name} avatarUrl={sender.url} />
       <Group p="sm">
-        <Button onClick={() => {
-          acceptOffer();
-        }} color="accent" flex={1}>Accept Offer</Button>
-        <Button variant="outline" flex={1}>Decline Offer</Button>
+        <Button
+          onClick={() => {
+            acceptOffer();
+          }}
+          color="accent"
+          flex={1}
+        >
+          Accept Offer
+        </Button>
+        <Button variant="outline" flex={1}>
+          Decline Offer
+        </Button>
       </Group>
-      <ChatBox onSend={handleSendMessage} />
+      <ChatBox onSend={handleSendMessage} offerId={offerId} />
     </div>
   );
 };
