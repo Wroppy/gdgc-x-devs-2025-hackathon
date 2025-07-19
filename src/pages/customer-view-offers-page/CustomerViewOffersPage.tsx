@@ -4,6 +4,7 @@ import BottomNavBar from "../../layouts/BottomNavBar";
 import RestaurantOfferBox from "../../components/restaurant-offer-box/RestaurantOfferBox";
 import type { Offer } from "../../types/Offer";
 import supabase from "../../supabase-client";
+import { Link } from "react-router";
 
 const Skeletons = () => {
   const fakes = [
@@ -188,7 +189,14 @@ const CustomerViewOffersPage = () => {
           </Stack>
         ) : (
           offers.map((offer, index) => (
-            <RestaurantOfferBox key={index} offer={offer} />
+            <Box
+              key={index}
+              component={Link}
+              to={`/customer/chat/${offer.id}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <RestaurantOfferBox offer={offer} />
+            </Box>
           ))
         )}
       </Box>
