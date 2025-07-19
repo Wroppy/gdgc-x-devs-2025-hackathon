@@ -12,6 +12,7 @@ import { useElementSize } from "@mantine/hooks";
 import { IconSearch } from "@tabler/icons-react";
 import BottomNavBar from "../../layouts/BottomNavBar";
 import { Link } from "react-router";
+import DesktopNavbar from "../../components/desktop-navbar/DesktopNavbar";
 
 export default function DishcoverScreen() {
   const { ref, width, height } = useElementSize();
@@ -23,15 +24,7 @@ export default function DishcoverScreen() {
       }}
       className={styles.dishcoverScreen}
     >
-      <Box p="lg">
-        <Group>
-          <Image src="/logo.png" alt="Logo" h={50} w={"auto"} />
-
-          <Text fw={700} size="xl" c="orange.9">
-            DISHCOVER
-          </Text>
-        </Group>
-      </Box>
+      <DesktopNavbar />
       <Stack ref={ref} className={styles.graphic}>
         <svg
           viewBox={`${width} ${height}`}
@@ -57,7 +50,7 @@ export default function DishcoverScreen() {
         <Box className={styles.graphicText}>
           <Box className={styles.requestBox} h={height * 0.5}>
             <Text size="lg" fw={600}>
-              Looking for more customers? 
+              Looking for more customers?
             </Text>
             <Button
               component={Link}
@@ -81,9 +74,6 @@ export default function DishcoverScreen() {
           </Box>
         </Box>
       </Stack>
-      <Box style={{width: "100%", height: "60px" }}>
-        <BottomNavBar />
-      </Box>
     </div>
   );
 }

@@ -1,0 +1,15 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.navLink {
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+
+}
+.activeLink {
+  border-bottom-color: #00C58E;
+}
