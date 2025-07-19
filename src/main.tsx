@@ -26,7 +26,6 @@ import Request from "./pages/request-page/RequestPage.tsx";
 import RestaurantHomePage from "./pages/restaurant-home-page/RestaurantHomePage.tsx";
 import FindRequestsPage from "./pages/restaurant-find-requests/FindRequestsPage.tsx";
 
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MantineProvider theme={theme}>
@@ -39,17 +38,17 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/home" element={<HomePage />} />
               <Route path="/dev" element={<Dev />} />
               <Route path="*" element={<NotFoundPage />} />
-              <Route path="/feedback" element={<FeedbackPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="customer">
-              <Route index element={<CustomerHomePage />} />
-              <Route path="request" element={<Request />} />
-            </Route>
-            <Route path="/restaurant">
-              <Route index element={<RestaurantHomePage />} />
-              <Route path="find-requests" element={<FindRequestsPage />} />
-            </Route>
-            <Route path="/test" element={<Test />} />
+                <Route index element={<CustomerHomePage />} />
+                <Route path="feedback" element={<FeedbackPage />} />
+                <Route path="request" element={<Request />} />
+              </Route>
+              <Route path="/restaurant">
+                <Route index element={<RestaurantHomePage />} />
+                <Route path="find-requests" element={<FindRequestsPage />} />
+              </Route>
+              <Route path="/test" element={<Test />} />
             </Route>
           </Routes>
         </AuthProvider>
