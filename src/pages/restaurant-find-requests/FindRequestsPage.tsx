@@ -94,6 +94,8 @@ const FindRequestsPage = () => {
     open();
   };
 
+  // Subscribed to get status
+
   return (
     <>
       <OfferModal opened={opened} onClose={close} offerTime={offerTime} />

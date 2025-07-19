@@ -6,9 +6,12 @@ import styles from "./resturant-find-requests.module.css";
 type Props = {
   customerRequest: CustomerRequest;
   onClick: () => void;
+  status?: Status; 
 };
 
-const UserRequest = ({ customerRequest, onClick }: Props) => {
+type Status = "awaiting" | "sent" | "accepted" | "rejected";
+
+const UserRequest = ({ customerRequest, onClick, status="awaiting" }: Props) => {
   // const placeholder = {
   //   name: "John Doe",
   //   group_size: 4,
@@ -26,6 +29,25 @@ const UserRequest = ({ customerRequest, onClick }: Props) => {
     budget_lower,
     budget_upper,
   } = customerRequest;
+
+  let buttonText;
+  switch (status) {
+    case "awaiting":
+      buttonText = "Make an offer";
+      break;
+    case "sent":
+      buttonText = "Offer sent";
+      break;
+    case "accepted":
+      buttonText = "Offer accepted";
+      break;
+    case "rejected":
+      buttonText = "Offer rejected";
+      break;
+    default:
+      buttonText = "Make an offer";
+      break;
+  }
 
   return (
     <Accordion variant="separated" radius="md">
@@ -78,8 +100,9 @@ const UserRequest = ({ customerRequest, onClick }: Props) => {
 
             <Group justify="flex-end">
               <Button 
+                disabled={status !== "awaiting"}
               onClick={onClick}
-              variant="outline">Make an offer</Button>
+              variant="outline">{buttonText}</Button>
             </Group>
           </Box>
         </Accordion.Panel>
