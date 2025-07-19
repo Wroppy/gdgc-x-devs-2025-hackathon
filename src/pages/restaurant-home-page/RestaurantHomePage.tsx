@@ -44,19 +44,19 @@ export default function DishcoverScreen() {
               height * 0.6
             } 
               Z`}
-            fill="#00c39a"
+            fill="#ff7c00"
           />
           <path
             d={`M-10 ${height * 0.7}
                 C0 ${height * 0.8} ${width} ${height * 0.7} ${width} ${height}
                 L${width} ${height} L0 ${height}
               Z`}
-            fill="#ff7c00"
+            fill="#00c39a"
           />
         </svg>
         <Box className={styles.graphicText}>
           <Box className={styles.requestBox} h={height * 0.5}>
-            <Text size="lg" fw={600} c = "white">
+            <Text size="lg" fw={600}>
               Looking for more customers? 
             </Text>
             <Button
