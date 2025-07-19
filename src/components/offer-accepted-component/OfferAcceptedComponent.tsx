@@ -1,10 +1,16 @@
-import { Box, Center, Image, Stack, Text, Transition } from "@mantine/core";
+import { Box, Center, Image, Stack, Text, Button } from "@mantine/core";
 import React, { useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 type Props = {};
 
 const OfferAcceptedComponent = (props: Props) => {
+  const navigate = useNavigate();
+
+  const handleReviewClick = () => {
+    navigate("/customer/feedback");
+  };
+
   return (
     <Center
       style={{
@@ -25,9 +31,9 @@ const OfferAcceptedComponent = (props: Props) => {
         </Text>
         <Text>Time: 12:00 PM - 1:00 PM, 20th October 2023</Text>
         <Text>Location: 123 Bikini Bottom Street, Bikini Bottom</Text>
-        <Text>
-          Go <Text component={Link} td="underline" to="/customer" c="accent">back</Text>
-        </Text>
+        <Button mt="md" color="accent" onClick={handleReviewClick}>
+          Leave a Review
+        </Button>
       </Stack>
     </Center>
   );
