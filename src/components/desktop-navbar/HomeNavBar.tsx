@@ -1,4 +1,4 @@
-import { Avatar, Box, Group, Image, Text } from "@mantine/core";
+import { ActionIcon, Avatar, Box, Group, Image, Text } from "@mantine/core";
 import React from "react";
 import styles from "./desktop-navbar.module.css";
 import { Link, useLocation } from "react-router";

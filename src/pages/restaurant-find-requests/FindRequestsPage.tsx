@@ -12,6 +12,7 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
+import DesktopNavbar from "../../components/desktop-navbar/DesktopNavbar";
 
 const Skeletons = () => {
   const placeholder = {
@@ -79,21 +80,21 @@ const FindRequestsPage = (props: Props) => {
 
   return (
     <Stack>
-      <Stack p="lg">
-        <Text fw={500} size="lg">
-          Requests
-        </Text>
-        <Select
-          label="Sort by"
-          clearable
-          data={[
-            { value: "group-size", label: "Group Size" },
-            { value: "distance", label: "Distance" },
-            { value: "time-posted", label: "Time Posted" },
-          ]}
-          placeholder="Select sorting option"
-        />
-      </Stack>
+      <Box>
+        <DesktopNavbar heading="Find Customers" />
+        <Box pl="sm" pr="sm">
+          <Select
+            label="Sort by"
+            clearable
+            data={[
+              { value: "group-size", label: "Group Size" },
+              { value: "distance", label: "Distance" },
+              { value: "time-posted", label: "Time Posted" },
+            ]}
+            placeholder="Select sorting option"
+          />
+        </Box>
+      </Box>
       <Box>
         {loading ? (
           <>
