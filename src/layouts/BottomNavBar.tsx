@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Center, Avatar, Indicator, ActionIcon } from "@mantine/core";
+import { Box, Avatar, ActionIcon } from "@mantine/core";
 import {
   IconHome2,
   IconSearch,
@@ -7,8 +7,10 @@ import {
   IconSquarePlus,
 } from "@tabler/icons-react";
 import customerAvatar from "../../public/patrick-star.png";
+import { Link, useLocation } from "react-router";
 
 const BottomNavBar: React.FC = () => {
+  const location = useLocation();
   return (
     <Box style={{ width: "100%", height: "60px" }}>
       <Box
@@ -26,20 +28,31 @@ const BottomNavBar: React.FC = () => {
           backgroundColor: "white",
         }}
       >
-        <ActionIcon variant="subtle" size="lg">
-          <IconHome2 color="black" size={30} />
+        <ActionIcon variant="subtle" size="lg" component={Link} to={"/customer"}> 
+          {location.pathname === "/customer" ? (
+            <IconHome2 color="orange" size={30} />
+          ) : (
+            <IconHome2 color="black" size={30} />
+          )}
         </ActionIcon>
-
         <ActionIcon variant="subtle" size="lg">
           <IconSearch color="black" size={30} />
         </ActionIcon>
 
         <ActionIcon variant="subtle" size="lg">
-          <IconSquarePlus color="black" size={30} />
+          {location.pathname === "/customer/request" ? (
+            <IconSquarePlus color="orange" size={30} />
+          ) : (
+            <IconSquarePlus color="black" size={30} />
+          )}
         </ActionIcon>
 
-        <ActionIcon variant="subtle" size="lg">
-          <IconBell color="black" size={30} />
+        <ActionIcon variant="subtle" size="lg" component={Link} to={"/customer/offers"}>
+          {location.pathname === "/customer/offers" ? (
+            <IconBell color="orange" size={30} />
+          ) : (
+            <IconBell color="black" size={30} />
+          )}
         </ActionIcon>
 
         <Avatar src={customerAvatar} radius="xl" size={35} />
