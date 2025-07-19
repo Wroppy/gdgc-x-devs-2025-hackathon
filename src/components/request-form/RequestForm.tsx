@@ -86,12 +86,15 @@ const RequestForm = () => {
                     <RangeSlider 
                         minRange={10} min={0} max={100} step={10} defaultValue={[10, 20]} 
                         label={(value) => (value === 100 ? "$100+" : `$${value}`)}
-                        w="99%"
+                        w="100%"
                         marks={[
                             { value: 0, label: '$0' },
                             { value: 50, label: '$50' },
                             { value: 100, label: '$100+' },
-                        ]}/>
+                        ]}
+                        classNames={{ markLabel: styles.markLabel}}
+                        
+                        />
 
                     <TagsInput
                         label="MOOD"
