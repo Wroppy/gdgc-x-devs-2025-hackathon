@@ -110,7 +110,7 @@ const ReviewForm = (props: Props) => {
           <Loader color="orange" />
         </Center>
         ) : submitted ? (
-        <Text ta="center" c="green" fw={500}>
+        <Text ta="center" c="accent" fw={500}>
           Your review has been submitted!
         </Text>
         ) : (
