@@ -1,0 +1,34 @@
+.chatBox {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.messagesBox {
+  flex-grow: 1;
+}
+
+.inputForm {
+}
+
+.rightSection {
+  display: flex;
+}
+
+
+.senderMessage, .receiverMessage { 
+  display: flex;
+  border-radius: 1rem;
+}
+
+
+.receiverMessage {
+
+}
+.senderMessage {
+}
+.message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
