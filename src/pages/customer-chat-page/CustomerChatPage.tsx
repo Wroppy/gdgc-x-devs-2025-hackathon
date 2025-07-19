@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ChatBox from "../../components/chat-box/ChatBox";
 import ChatBoxHeader from "../../components/chat-box/ChatBoxHeader";
 import { Box, Button, Group, stylesToString } from "@mantine/core";
+import OfferAcceptedComponent from "../../components/offer-accepted-component/OfferAcceptedComponent";
 
 type Props = {};
 
@@ -32,12 +33,14 @@ const CustomerChatPage = (props: Props) => {
     >
       {
         openOffer && (
-          
+          <OfferAcceptedComponent />
         )
       }
       <ChatBoxHeader name={sender.name} avatarUrl={sender.url} />
       <Group p="sm">
-        <Button color="accent" flex={1}>Accept Offer</Button>
+        <Button onClick={() => {
+          acceptOffer();
+        }} color="accent" flex={1}>Accept Offer</Button>
         <Button variant="outline" flex={1}>Decline Offer</Button>
       </Group>
       <ChatBox onSend={handleSendMessage} />

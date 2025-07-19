@@ -35,12 +35,12 @@ const ChatBox = ({ onSend }: Props) => {
   return (
     <Stack p="md" className={styles.chatBox}>
       <Stack justify="flex-end" gap="xs" className={styles.messagesBox}>
-        {messages.map((msg) => {
+        {messages.map((msg, i) => {
           const isSender = msg.senderId === USER_ID;
           return isSender ? (
-            <SenderMessage key={msg.id} content={msg.content} />
+            <SenderMessage key={i} content={msg.content} />
           ) : (
-            <ReceiverMessage key={msg.id} content={msg.content} />
+            <ReceiverMessage key={i} content={msg.content} />
           );
         })}
       </Stack>
