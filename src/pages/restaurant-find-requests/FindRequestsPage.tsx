@@ -59,15 +59,26 @@ const FindRequestsPage = (props: Props) => {
       });
   }, []);
 
-  const s = supabase
-    .from("customer_requests")
-    .on("INSERT", (payload) => {
-      setRequests((prevRequests) => [
-        payload.new as unknown as CustomerRequest,
-        ...prevRequests,
-      ]);
-    })
-    .subscribe();
+  useEffect(() => {
+    const channel = supabase
+      .channel("realtime:customer_requests")
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "customer_requests",
+        },
+        (payload) => {
+          setRequests((prev) => [payload.new as CustomerRequest, ...prev]);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   return (
     <Stack>

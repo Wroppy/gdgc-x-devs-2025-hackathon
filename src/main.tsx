@@ -35,7 +35,7 @@ createRoot(document.getElementById("root")!).render(
         <AuthProvider>
           <Routes>
             <Route element={<RootLayout />}>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<LoginPage />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/dev" element={<Dev />} />
               <Route path="*" element={<NotFoundPage />} />
