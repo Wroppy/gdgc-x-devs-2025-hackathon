@@ -25,6 +25,8 @@ import { AuthProvider } from "./contexts/AuthContext.tsx";
 import Request from "./pages/request-page/RequestPage.tsx";
 import RestaurantHomePage from "./pages/restaurant-home-page/RestaurantHomePage.tsx";
 import FindRequestsPage from "./pages/restaurant-find-requests/FindRequestsPage.tsx";
+import OfferPage from "./pages/offer-page/OfferPage.tsx";
+import CustomerViewOffersPage from "./pages/customer-view-offers-page/CustomerViewOffersPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -35,7 +37,7 @@ createRoot(document.getElementById("root")!).render(
           <Routes>
             <Route element={<RootLayout />}>
               <Route path="/" element={<LoginPage />} />
-              <Route path="/home" element={<HomePage />} />
+              <Route path="/home" element={<LoginPage />} />
               <Route path="/dev" element={<Dev />} />
               <Route path="*" element={<NotFoundPage />} />
               <Route path="/login" element={<LoginPage />} />
@@ -44,10 +46,12 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="chat" element={<CustomerChatPage />} />
                 <Route path="request" element={<Request />} />
                 <Route path="feedback" element={<FeedbackPage />} />
+                <Route path="offers" element={<CustomerViewOffersPage />} />
               </Route>
               <Route path="/restaurant">
                 <Route index element={<RestaurantHomePage />} />
-                <Route path="find-requests" element={<FindRequestsPage />} />
+                <Route path="find" element={<FindRequestsPage />} />
+                <Route path="offer" element={<OfferPage />} />
               </Route>
             </Route>
           </Routes>

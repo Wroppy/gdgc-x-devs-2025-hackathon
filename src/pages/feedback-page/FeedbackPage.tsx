@@ -3,13 +3,16 @@ import { IconChevronLeft } from "@tabler/icons-react";
 import React from "react";
 import styles from "./feedback-page.module.css";
 import ReviewForm from "../../components/review-form/ReviewForm";
+import { Link } from "react-router";
 type Props = {};
 
 const FeedbackPage = (props: Props) => {
   return (
     <div className={styles.feedbackPage}>
-      <Box h="2.1rem" bg="orange" className={styles.feedbackPageHeader}>
+      <Box p="sm" bg="orange" className={styles.feedbackPageHeader}>
         <ActionIcon
+          component={Link}
+          to={"/customer"}
           size="lg"
           variant="transparent"
           className={styles.backButton}

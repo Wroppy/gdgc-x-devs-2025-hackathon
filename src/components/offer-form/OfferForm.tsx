@@ -1,115 +1,120 @@
 import {
+  Box,
   Button,
   FileButton,
+  FileInput,
   Group,
   Image,
   Stack,
   Text,
   Textarea,
 } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import supabase from "../../supabase-client";
 import styles from "./offer-form.module.css";
+import { useSearchParams } from "react-router";
+import CustomerAvatar from "../customer-avatar/CustomerAvatar";
 
 type Props = {
   onSubmit: (data: {
     whyChooseUs: string;
-    photo: string; // This will be the image URL
+    photo: File | null; // This will be the image URL
     notes: string;
+    request_id: string;
   }) => Promise<void>;
 };
 
-
 const OfferForm = ({ onSubmit }: Props) => {
-  const [offerTime, setOfferTime] = useState<string | null>(null);
+  const [searchParams] = useSearchParams();
+  const offerTime = useMemo(() => {
+    const dateParam = searchParams.get("date");
+    console.log(dateParam);
+    if (dateParam) {
+      return new Date(dateParam.replace(" ", "+")).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    }
+    return null;
+  }, [searchParams]);
+
   const [whyChooseUs, setWhyChooseUs] = useState("");
   const [notes, setNotes] = useState("");
-  const [image, setImage] = useState<File | null>(null);   // TODO: decide if we need this to send it to supabase
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [image, setImage] = useState<File | null>(null); // TODO: decide if we need this to send it to supabase
+  const [uploading, setUploading] = useState(false);
 
-  // TODO: Fetch offer time from Supabase
-  useEffect(() => {
-    const fetchOfferTime = async () => {
-      const { data, error } = await supabase
-        .from("offers")
-        .select("offer_time")
-        .eq("id", 1)
-        .single();
-
-      if (data) {
-        setOfferTime(new Date(data.offer_time).toLocaleString());
-      } else {
-        console.error("Error fetching offer time:", error);
-      }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const payload = {
+      whyChooseUs,
+      photo: image, // This will be the image file
+      notes,
+      request_id: searchParams.get("request_id") || "",
     };
-    fetchOfferTime();
-  }, []);
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const payload = {
-        whyChooseUs,
-        photo: previewUrl ?? '',
-        notes,
-        };
-        console.log("Form submitted:", payload);
+    console.log("Form submitted:", payload);
+    setUploading(true);
     await onSubmit?.(payload);
-    };
-
+    setUploading(false);
+  };
 
   return (
     <form onSubmit={handleSubmit} className={styles.offerForm}>
       <Stack>
+        <Group gap="sm">
+          <CustomerAvatar />
+          <Text size="xl" fw={500}>
+            Patrick Star
+          </Text>
+        </Group>
         <Text size="sm" fw={500} mb={4}>
-          DATE & TIME
+          Date & time: <Text span>{offerTime || "Loading..."}</Text>
         </Text>
-        <Text>{offerTime || "Loading..."}</Text>
+        <Text></Text>
         <Textarea
-          label="WHY CHOOSE US?"
-          placeholder="Reason for why customer should choose your restaurant."
+          label="Why choose us?"
+          placeholder="Reasons for why customer should choose your restaurant."
           value={whyChooseUs}
           onChange={(e) => setWhyChooseUs(e.target.value)}
           autosize
           required
           minRows={3}
+          disabled={uploading}
         />
 
         <Text size="sm" fw={500} mb={4}>
-          PHOTOS
+          Send a photo with your offer (optional)
         </Text>
-        <Group>
-          {previewUrl && <Image src={previewUrl} w={80} h={80} radius="sm" />}
-          <FileButton
-            onChange={(file) => {
-              if (file) {
-                setImage(file);
-                setPreviewUrl(URL.createObjectURL(file));
-              }
-            }}
-            accept="image/png,image/jpeg"
-          >
-            {(props) => (
-              <Button radius="xl" variant="default" {...props}>
-                +
-              </Button>
-            )}
-          </FileButton>
-        </Group>
+        <FileInput
+          placeholder="Upload a photo"
+          value={image}
+          onChange={(file) => {
+            setImage(file);
+          }}
+          accept="image/*"
+          clearable
+          disabled={uploading}
+        />
 
         <Textarea
-          label="ADDITIONAL NOTES"
+          label="Additional notes (optional)"
           placeholder="Enter additional details to your offer here."
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           autosize
           minRows={3}
+          disabled={uploading}
         />
 
-        <Button fullWidth color="orange" onClick={handleSubmit}>
-          Send the Offer
+        <Button
+          loading={uploading}
+          fullWidth
+          color="orange"
+          onClick={handleSubmit}
+        >
+          Send offer
         </Button>
       </Stack>
-      </form>
+    </form>
   );
 };
 

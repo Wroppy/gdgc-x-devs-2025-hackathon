@@ -3,12 +3,14 @@ import { IconChevronLeft } from "@tabler/icons-react";
 import React from "react";
 import styles from "./request-page.module.css";
 import RequestForm from "../../components/request-form/RequestForm";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import supabase from "../../supabase-client";
 
 type Props = {};
 
 const RequestPage = (props: Props) => {
+  const navigate = useNavigate();
+
   const handleSubmit = async (data: {
     time: Date | null;
     groupSize: number;
@@ -41,13 +43,14 @@ const RequestPage = (props: Props) => {
           console.error("Error inserting request:", error);
         } else {
           console.log("Request inserted successfully:", data);
+          navigate("/customer/offers");
         }
       });
   };
 
   return (
     <div className={styles.requestPage}>
-      <Box h="2.1rem" bg="orange" className={styles.requestPageHeader}>
+      <Box p="sm" bg="orange" className={styles.requestPageHeader}>
         <ActionIcon
           component={Link}
           size="lg"
@@ -58,9 +61,11 @@ const RequestPage = (props: Props) => {
         >
           <IconChevronLeft size={24} />
         </ActionIcon>
-        <Text fw={500} c="white">
-          Request Form
-        </Text>
+        <Box>
+          <Text fw={500} c="white">
+            Send a request to become available for offers
+          </Text>
+        </Box>
       </Box>
       <Box flex={1} p="md">
         <RequestForm onSubmit={handleSubmit} />

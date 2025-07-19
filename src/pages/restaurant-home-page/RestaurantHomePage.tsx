@@ -61,14 +61,14 @@ export default function DishcoverScreen() {
             </Text>
             <Button
               component={Link}
-              to="/restaurant/find-requests"
+              to="/restaurant/find"
               className={styles.newButton}
               radius="md"
               variant="filled"
               maw={200}
               color="white"
             >
-              Find Requests
+              Find customers
             </Button>
           </Box>
           <Box className={styles.nearbyBox} h={height * 0.5}>
@@ -76,7 +76,7 @@ export default function DishcoverScreen() {
               Or check latest reviews?
             </Text>
             <Button radius="md" color="orange" mt="xs">
-              Reviews
+              Go to reviews
             </Button>
           </Box>
         </Box>

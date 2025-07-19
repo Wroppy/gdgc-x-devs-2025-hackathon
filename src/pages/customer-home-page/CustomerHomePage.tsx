@@ -88,9 +88,7 @@ export default function DishcoverScreen() {
           </Box>
         </Box>
       </Stack>
-      <Box style={{width: "100%", height: "60px" }}>
         <BottomNavBar />
-      </Box>
     </div>
   );
 }
