@@ -5,6 +5,7 @@ import styles from "./request-page.module.css";
 import RequestForm from "../../components/request-form/RequestForm";
 import { Link } from "react-router";
 import supabase from "../../supabase-client";
+
 type Props = {};
 
 const RequestPage = (props: Props) => {
@@ -18,7 +19,6 @@ const RequestPage = (props: Props) => {
     notes: string;
   }) => {
     console.log("Request submitted:", data);
-
 
     supabase
       .from("customer_requests")
@@ -58,7 +58,9 @@ const RequestPage = (props: Props) => {
         >
           <IconChevronLeft size={24} />
         </ActionIcon>
-        <Text c="white">Request Form</Text>
+        <Text fw={500} c="white">
+          Request Form
+        </Text>
       </Box>
       <Box flex={1} p="md">
         <RequestForm onSubmit={handleSubmit} />
