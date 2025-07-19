@@ -19,29 +19,34 @@ import NotFoundPage from "./pages/not-found-page/NotFoundPage.tsx";
 import FeedbackPage from "./pages/feedback-page/FeedbackPage.tsx";
 import LoginPage from "./pages/login-page/LoginPage.tsx";
 import CustomerHomePage from "./pages/customer-home-page/CustomerHomePage.tsx";
+import { showNotification } from "@mantine/notifications";
+import { AuthProvider } from "./contexts/AuthContext.tsx";
 import Test from "./pages/Test.tsx";
 import Request from "./pages/request-page/RequestPage.tsx";
+
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MantineProvider theme={theme}>
       <Notifications />
       <BrowserRouter>
-        <Routes>
-          <Route element={<RootLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/dev" element={<Dev />} />
-            <Route path="*" element={<NotFoundPage />} />
-            <Route path="/feedback" element={<FeedbackPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="customer">
+        <AuthProvider>
+          <Routes>
+            <Route element={<RootLayout />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/dev" element={<Dev />} />
+              <Route path="*" element={<NotFoundPage />} />
+              <Route path="/feedback" element={<FeedbackPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="customer">
               <Route index element={<CustomerHomePage />} />
               <Route path="request" element={<Request />} />
             </Route>
             <Route path="/test" element={<Test />} />
-          </Route>
-        </Routes>
+            </Route>
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </MantineProvider>
   </StrictMode>
