@@ -60,7 +60,6 @@ const ReviewForm = (props: Props) => {
   }, 500);
 };
 
-
   return (
     <form className={styles.reviewForm} onSubmit={handleSubmit}>
       <Stack justify="space-between">
@@ -112,7 +111,7 @@ const ReviewForm = (props: Props) => {
         </Center>
         ) : submitted ? (
         <Text ta="center" c="green" fw={500}>
-          Your feedback has been submitted!
+          Your review has been submitted!
         </Text>
         ) : (
         <Button fullWidth color="orange" type="submit">
