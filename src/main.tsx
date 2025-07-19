@@ -20,6 +20,8 @@ import FeedbackPage from "./pages/feedback-page/FeedbackPage.tsx";
 import LoginPage from "./pages/login-page/LoginPage.tsx";
 import CustomerHomePage from "./pages/customer-home-page/CustomerHomePage.tsx";
 import CustomerChatPage from "./pages/customer-chat-page/CustomerChatPage.tsx";
+import { showNotification } from "@mantine/notifications";
+import { AuthProvider } from "./contexts/AuthContext.tsx";
 import Test from "./pages/Test.tsx";
 import Request from "./pages/request-page/RequestPage.tsx";
 
@@ -28,20 +30,25 @@ createRoot(document.getElementById("root")!).render(
     <MantineProvider theme={theme}>
       <Notifications />
       <BrowserRouter>
-        <Routes>
-          <Route element={<RootLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/dev" element={<Dev />} />
-            <Route path="*" element={<NotFoundPage />} />
-            <Route path="/feedback" element={<FeedbackPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/customer" element={<CustomerHomePage />} />
-            <Route path="/customer-chat" element={<CustomerChatPage />} />
-            <Route path="/test" element={<Test />} />
-            <Route path="/request" element={<Request />} />
-          </Route>
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route element={<RootLayout />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/dev" element={<Dev />} />
+              <Route path="*" element={<NotFoundPage />} />
+              <Route path="/feedback" element={<FeedbackPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="customer">
+                <Route index element={<CustomerHomePage />} />
+                <Route path="chat" element={<CustomerChatPage />} />
+
+                <Route path="request" element={<Request />} />
+              </Route>
+              <Route path="/test" element={<Test />} />
+            </Route>
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </MantineProvider>
   </StrictMode>
