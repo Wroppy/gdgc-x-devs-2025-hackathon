@@ -81,7 +81,7 @@ const RequestForm = () => {
                         clearable
                     />
                     <Text size="sm" fw={500} mb={4}>
-                        BUDGET PER PERSON:
+                        BUDGET PER PERSON
                     </Text>
                     <RangeSlider 
                         minRange={10} min={0} max={100} step={10} defaultValue={[10, 20]} 
