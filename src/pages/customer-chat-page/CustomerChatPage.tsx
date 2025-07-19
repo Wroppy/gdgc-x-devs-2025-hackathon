@@ -46,12 +46,18 @@ const CustomerChatPage = () => {
         console.error("Failed to fetch restaurant owner info:", error);
         return;
       }
-
-      const owner = data.restaurant?.owner;
+      // console.log(data.restaurant)
+      // const owner = data.restaurant?.owner;
+      // setReceiverInfo({
+      //   name: owner?.name ?? "Unknown",
+      //   avatarUrl: owner?.restaurant_owner_image_url ?? "/fallback.png",
+      // });
       setReceiverInfo({
-        name: owner?.name ?? "Unknown",
-        avatarUrl: owner?.restaurant_owner_image_url ?? "/fallback.png",
+        name: "Eugene Krabs", 
+        avatarUrl:
+          "https://xivesioqwjixsrrkgkcv.supabase.co/storage/v1/object/public/restaurant-owner-image-url/restaurant_owners/eugene_krabs.jpeg",
       });
+      console.log("Receiver info for customer:", receiverInfo);
     } else if (role === "restaurant_owner") {
       setReceiverInfo({
         name: "Patrick Star",
@@ -59,7 +65,6 @@ const CustomerChatPage = () => {
           "https://xivesioqwjixsrrkgkcv.supabase.co/storage/v1/object/public/restaurant-owner-image-url/customers/patrick_star.jpeg",
       });
     }
-
     setLoading(false);
   };
 

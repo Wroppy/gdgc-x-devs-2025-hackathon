@@ -59,7 +59,7 @@ const LoginPage = (props: Props) => {
           role: "customer",
         };
         navigate("/customer");
-        setUser(fetchedCustomer);
+        setUser(fetchedCustomer as User);
         setRole("customer");
         showNotification({
           title: "Login successful",
@@ -76,7 +76,7 @@ const LoginPage = (props: Props) => {
           phone: owner.phone,
           avatar_url: owner.restaurant_owner_image_url,
           restaurant_id: owner.restaurant_id,
-          role: "restaurant_owner",
+          role: "restaurant_owner" as "customer" | "restaurant_owner",
         };
         navigate("/restaurant");
         setUser(fetchedOwner);
