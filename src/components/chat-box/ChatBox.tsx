@@ -1,5 +1,6 @@
 //NOTE: The file contains hardcoded values for demonstration purposes.
 // Once you are able to get user data from the auth context, you can replace these hardcoded values with dynamic ones.
+// HARDCODED VALUES:
 
 import { ActionIcon, Box, Stack, TextInput } from "@mantine/core";
 import React, { useEffect, useState, type FormEvent } from "react";

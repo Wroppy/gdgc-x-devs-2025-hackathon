@@ -8,6 +8,7 @@ import {
 } from "@tabler/icons-react";
 import customerAvatar from "../../public/patrick-star.png";
 import { Link, useLocation } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
 
 type Props = {
   notifications?: number;
