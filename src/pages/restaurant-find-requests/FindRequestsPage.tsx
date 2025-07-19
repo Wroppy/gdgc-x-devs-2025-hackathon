@@ -28,7 +28,6 @@ const FindRequestsPage = (props: Props) => {
     .subscribe();
 
   return <div>
-    <h1>Find Requests</h1>
     {requests.map((request) => (
       <UserRequest key={request.id} customerRequest={request} />
     ))}

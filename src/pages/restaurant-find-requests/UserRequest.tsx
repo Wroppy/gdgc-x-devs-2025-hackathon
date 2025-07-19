@@ -1,7 +1,7 @@
 import React from "react";
 import type { CustomerRequest } from "../../types/CustomerRequest";
 import CustomerAvatar from "../../components/customer-avatar/CustomerAvatar";
-import { Accordion, Box, Text } from "@mantine/core";
+import { Accordion, Box, Button, Group, Text } from "@mantine/core";
 import styles from "./resturant-find-requests.module.css";
 
 type Props = {
@@ -16,7 +16,16 @@ const UserRequest = ({ customerRequest }: Props) => {
   //   created_at: new Date().toISOString(),
   //   preferred_time: new Date().toISOString(),
   // };
-  const { group_size, created_at, preferred_time } = customerRequest;
+  const {
+    group_size,
+    created_at,
+    preferred_time,
+    notes,
+    preferred_cuisines,
+    preferred_vibes,
+    budget_lower,
+    budget_upper,
+  } = customerRequest;
 
   return (
     <Accordion variant="separated" radius="md">
@@ -50,10 +59,27 @@ const UserRequest = ({ customerRequest }: Props) => {
           </div>
         </Accordion.Control>
         <Accordion.Panel>
-          {/* 👇 You can put expanded details here */}
-          <Text size="sm" c="dimmed">
-            More request info can go here...
-          </Text>
+          <Box ml={`calc(38px + var(--mantine-spacing-md))`}>
+            {/* 👇 You can put expanded details here */}
+            <Box>
+              <Text size="sm" c="dimmed">
+                Preferred Cuisines: {(preferred_cuisines || []).join(", ")}
+              </Text>
+              <Text size="sm" c="dimmed">
+                Preferred Vibes: {(preferred_vibes || []).join(", ")}
+              </Text>
+              <Text size="sm" c="dimmed">
+                Preferred Price Range: ${budget_lower} - ${budget_upper}
+              </Text>
+            </Box>
+            <Text size="sm" c="dimmed">
+              {notes ? "Notes: " + notes : "No additional notes provided."}
+            </Text>
+
+            <Group justify="flex-end">
+              <Button variant="outline">Make an offer</Button>
+            </Group>
+          </Box>
         </Accordion.Panel>
       </Accordion.Item>
     </Accordion>
