@@ -1,27 +1,37 @@
-import React from 'react';
-import { Box, Center, Avatar, Indicator, ActionIcon } from '@mantine/core';
+import React from "react";
+import {
+  Box,
+  Center,
+  Avatar,
+  Indicator,
+  ActionIcon,
+  resolveClassNames,
+} from "@mantine/core";
 import {
   IconHome2,
   IconSearch,
   IconBell,
   IconSquarePlus,
-} from '@tabler/icons-react';
-import customerAvatar from '../../public/patrick-star.png';
+} from "@tabler/icons-react";
+import { useAuth } from "../contexts/AuthContext"; // Assuming user and role are exported from AuthContext
 
 const BottomNavBar: React.FC = () => {
+  const user = useAuth();
+  const customerAvatar = user?.user?.avatar_url || "default-avatar.png"; // Fallback avatar
+
   return (
     <Box
       style={{
-        position: 'fixed',
+        position: "fixed",
         bottom: 0,
         left: 0,
         right: 0,
         height: 60,
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center',
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
         zIndex: 1000,
-        boxShadow: '0 -1px 3px rgba(0, 0, 0, 0.1)',
+        boxShadow: "0 -1px 3px rgba(0, 0, 0, 0.1)",
       }}
     >
       <ActionIcon variant="subtle" size="lg">
@@ -35,16 +45,12 @@ const BottomNavBar: React.FC = () => {
       <ActionIcon variant="subtle" size="lg">
         <IconSquarePlus color="black" size={30} />
       </ActionIcon>
-      
+
       <ActionIcon variant="subtle" size="lg">
         <IconBell color="black" size={30} />
-        </ActionIcon>
+      </ActionIcon>
 
-      <Avatar
-        src={customerAvatar}
-        radius="xl"
-        size={35}
-      />
+      <Avatar src={customerAvatar} radius="xl" size={35} />
     </Box>
   );
 };
@@ -57,6 +63,5 @@ const BottomNavBar: React.FC = () => {
         </ActionIcon>
       </Indicator>
 */
-
 
 export default BottomNavBar;

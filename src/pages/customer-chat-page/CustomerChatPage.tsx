@@ -15,14 +15,17 @@ const CustomerChatPage = (props: Props) => {
   };
 
   const [openOffer, setOpenOffer] = useState(false);
-  const { user, role } = useAuth();
+  const { user } = useAuth();
 
   const offerId = 2;
 
   const sender = {
-    name: user.name,
-    url: user.avatar_url,
+    id: user?.id,
+    name: user?.name,
+    avatarUrl: user?.avatar_url || "",
   };
+
+  console.log("Sender:", sender);
 
   const acceptOffer = () => {
     setOpenOffer(true);
@@ -36,7 +39,10 @@ const CustomerChatPage = (props: Props) => {
       }}
     >
       {openOffer && <OfferAcceptedComponent />}
-      <ChatBoxHeader name={sender.name} avatarUrl={sender.url} />
+      <ChatBoxHeader
+        name={sender.name || ""}
+        avatarUrl={sender.avatarUrl || ""}
+      />
       <Group p="sm">
         <Button
           onClick={() => {
