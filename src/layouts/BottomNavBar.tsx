@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Avatar, ActionIcon } from "@mantine/core";
+import { Box, Avatar, ActionIcon, Indicator } from "@mantine/core";
 import {
   IconHome2,
   IconSearch,
@@ -9,7 +9,11 @@ import {
 import customerAvatar from "../../public/patrick-star.png";
 import { Link, useLocation } from "react-router";
 
-const BottomNavBar: React.FC = () => {
+type Props = {
+  notificationsCount?: number;
+};
+
+const BottomNavBar: React.FC = ({ notificationsCount = 0}: Props) => {
   const location = useLocation();
   return (
     <Box style={{ width: "100%", height: "60px" }}>
@@ -28,7 +32,12 @@ const BottomNavBar: React.FC = () => {
           backgroundColor: "white",
         }}
       >
-        <ActionIcon variant="subtle" size="lg" component={Link} to={"/customer"}> 
+        <ActionIcon
+          variant="subtle"
+          size="lg"
+          component={Link}
+          to={"/customer"}
+        >
           {location.pathname === "/customer" ? (
             <IconHome2 color="orange" size={30} />
           ) : (
@@ -46,15 +55,28 @@ const BottomNavBar: React.FC = () => {
             <IconSquarePlus color="black" size={30} />
           )}
         </ActionIcon>
-
-        <ActionIcon variant="subtle" size="lg" component={Link} to={"/customer/offers"}>
-          {location.pathname === "/customer/offers" ? (
-            <IconBell color="orange" size={30} />
-          ) : (
-            <IconBell color="black" size={30} />
-          )}
-        </ActionIcon>
-
+        <Indicator
+          label={notificationsCount}
+          size={18}
+          color="accent"
+          position="top-end"
+          offset={7}
+          withBorder
+          disabled={notificationsCount === 0}
+        >
+          <ActionIcon
+            variant="subtle"
+            size="lg"
+            component={Link}
+            to={"/customer/offers"}
+          >
+            {location.pathname === "/customer/offers" ? (
+              <IconBell color="orange" size={30} />
+            ) : (
+              <IconBell color="black" size={30} />
+            )}
+          </ActionIcon>
+        </Indicator>
         <Avatar src={customerAvatar} radius="xl" size={35} />
       </Box>
     </Box>
