@@ -1,3 +1,10 @@
 .logoContainer {
-  
+  padding-top: var(--mantine-spacing-lg);
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+
+.buttonIcon {
+  margin-right: 1rem;
 }

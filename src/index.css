@@ -16,9 +16,11 @@
   width: 100dvw;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 #root-content {
+  
   flex-grow: 1;
 }
 

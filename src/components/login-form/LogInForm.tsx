@@ -1,4 +1,12 @@
-import { Button, Group, PasswordInput, TextInput } from "@mantine/core";
+import {
+  Button,
+  Center,
+  Group,
+  PasswordInput,
+  Stack,
+  Text,
+  TextInput,
+} from "@mantine/core";
 import React, { useState, type FormEvent } from "react";
 import { IconLock, IconMail } from "@tabler/icons-react";
 import styles from "./login-form.module.css";
@@ -29,13 +37,21 @@ const LogInForm = ({ login }: Props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <Stack gap="sm">
         <div>
-          <div>
-            Log In
-          </div>
+          <Center>
+            <Text size="lg" fw={500}>
+              Login to your account
+            </Text>
+          </Center>
+
+          <Center>
+            <Text c="dimmed" size="sm">
+              Enter your email and password to log in.
+            </Text>
+          </Center>
         </div>
-        <div>
+        <Stack gap="sm">
           <TextInput
             label="Email"
             placeholder="your@email.com"
@@ -55,14 +71,11 @@ const LogInForm = ({ login }: Props) => {
             value={password}
             onChange={(e) => setPassword(e.currentTarget.value)}
           />
-          <Group justify="flex-end">
-            <div>Create an account</div>
-          </Group>
-          <Button type="submit" loading={loading}>
-            Login
+          <Button fullWidth type="submit" loading={loading}>
+            Continue
           </Button>
-        </div>
-      </div>
+        </Stack>
+      </Stack>
     </form>
   );
 };
