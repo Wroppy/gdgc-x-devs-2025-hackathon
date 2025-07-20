@@ -14,6 +14,11 @@ const CustomerChatPage = () => {
     name: string;
     avatarUrl: string;
   } | null>(null);
+  const [restaurant, setRestaurant] = useState<{
+    name: string;
+    avatarUrl: string;
+  } | null>(null);
+
   const [loading, setLoading] = useState(true);
   const [openOffer, setOpenOffer] = useState(false);
 
@@ -25,11 +30,10 @@ const CustomerChatPage = () => {
   const fetchReceiverInfo = async () => {
     if (!offerId) return;
 
-    if (role === "customer") {
-      const { data, error } = await supabase
-        .from("restaurant_offers")
-        .select(
-          `
+    const { data, error } = await supabase
+      .from("restaurant_offers")
+      .select(
+        `
           id,
           restaurant:restaurant_id (
             owner:owner_id (
@@ -38,15 +42,23 @@ const CustomerChatPage = () => {
             )
           )
         `
-        )
-        .eq("id", offerId)
-        .single();
+      )
+      .eq("id", offerId)
+      .single();
 
-      if (error || !data) {
-        console.error("Failed to fetch restaurant owner info:", error);
-        return;
-      }
+    if (error || !data) {
+      console.error("Failed to fetch restaurant owner info:", error);
+      return;
+    }
 
+    // @ts-expect-error yeah lol dont how this works
+    const o = data.restaurant?.owner;
+    setRestaurant({
+      name: o?.name ?? "Unknown Restaurant",
+      avatarUrl: o?.restaurant_owner_image_url ?? "/fallback.png",
+    });
+
+    if (role === "customer") {
       // @ts-expect-error yeah lol dont how this works
       const owner = data.restaurant?.owner;
       setReceiverInfo({
@@ -69,7 +81,7 @@ const CustomerChatPage = () => {
   }, [offerId, role]);
 
   if (!offerId) return <Text>Error: No offer ID provided</Text>;
-  if (loading || !receiverInfo) return <Loader />;
+  if (loading || !receiverInfo || !restaurant) return <Loader />;
 
   const sender = {
     id: user?.id,
@@ -94,7 +106,11 @@ const CustomerChatPage = () => {
           </Button>
         </Group>
       )}
-      <ChatBox onSend={handleSendMessage} offerId={parseInt(offerId)} />
+      <ChatBox
+        restaurant={restaurant}
+        onSend={handleSendMessage}
+        offerId={parseInt(offerId)}
+      />
     </div>
   );
 };

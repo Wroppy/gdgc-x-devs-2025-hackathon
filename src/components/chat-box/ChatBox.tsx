@@ -9,6 +9,10 @@ import { useAuth } from "../../contexts/AuthContext";
 type Props = {
   onSend: (message: string) => Promise<void>;
   offerId: number;
+  restaurant: {
+    name: string;
+    avatarUrl: string;
+  };
 };
 
 type Message = {
@@ -20,7 +24,7 @@ type Message = {
   sent_at: string;
 };
 
-const ChatBox = ({ onSend, offerId }: Props) => {
+const ChatBox = ({ onSend, offerId, restaurant }: Props) => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -94,10 +98,9 @@ const ChatBox = ({ onSend, offerId }: Props) => {
     setLoading(false);
   };
 
-  console.log(role); 
+  console.log(role);
 
-  // 
-  
+  //
 
   return (
     <Stack p="md" className={styles.chatBox}>
@@ -105,13 +108,23 @@ const ChatBox = ({ onSend, offerId }: Props) => {
         {messages.map((msg, i) => {
           const isSender = msg.sender_type === role;
           return isSender ? (
-            <SenderMessage key={i} content={msg.content} avatarUrl={
-              role === "restaurant_owner" ? "/krusty-crab.png" : "/patrick-star.png"
-            } />
-          ) : (
-            <ReceiverMessage key={i} content={msg.content} 
+            <SenderMessage
+              key={i}
+              content={msg.content}
               avatarUrl={
-                role === "restaurant_owner" ? "/patrick-star.png" : "/krusty-crab.png"
+                role === "restaurant_owner"
+                  ? restaurant.avatarUrl
+                  : "/patrick-star.png"
+              }
+            />
+          ) : (
+            <ReceiverMessage
+              key={i}
+              content={msg.content}
+              avatarUrl={
+                role === "restaurant_owner"
+                  ? "/patrick-star.png"
+                  : restaurant.avatarUrl
               }
             />
           );
