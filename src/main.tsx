@@ -27,6 +27,7 @@ import RestaurantHomePage from "./pages/restaurant-home-page/RestaurantHomePage.
 import FindRequestsPage from "./pages/restaurant-find-requests/FindRequestsPage.tsx";
 import OfferPage from "./pages/offer-page/OfferPage.tsx";
 import CustomerViewOffersPage from "./pages/customer-view-offers-page/CustomerViewOffersPage.tsx";
+import RestaurantChatBox from "./layouts/RestaurantChatBox.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -52,7 +53,9 @@ createRoot(document.getElementById("root")!).render(
                 <Route index element={<RestaurantHomePage />} />
                 <Route path="find" element={<FindRequestsPage />} />
                 <Route path="offer" element={<OfferPage />} />
-                <Route path="chat/:offerId" element={<CustomerChatPage />} />
+                <Route path="chat/:offerId" element={<RestaurantChatBox />}>
+                  <Route index element={<CustomerChatPage />} />
+                </Route>
               </Route>
             </Route>
           </Routes>

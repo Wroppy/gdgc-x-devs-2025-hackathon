@@ -81,9 +81,12 @@ const CustomerChatPage = () => {
   }, [offerId, role]);
 
   if (!offerId) return <Text>Error: No offer ID provided</Text>;
-  if (loading || !receiverInfo || !restaurant) return <Center h="100%">
-    <Loader />
-  </Center>;
+  if (loading || !receiverInfo || !restaurant)
+    return (
+      <Center h="100%">
+        <Loader />
+      </Center>
+    );
 
   const sender = {
     id: user?.id,
@@ -101,7 +104,19 @@ const CustomerChatPage = () => {
       />
       {role === "customer" && (
         <Group p="sm">
-          <Button onClick={() => setOpenOffer(true)} color="accent" flex={1}>
+          <Button
+            onClick={async () => {
+              setOpenOffer(true);
+              await supabase
+                .from("restaurant_offers")
+                .update({
+                  status: "accepted",
+                })
+                .eq("id", offerId);
+            }}
+            color="accent"
+            flex={1}
+          >
             Accept Offer
           </Button>
           <Button variant="outline" flex={1}>
