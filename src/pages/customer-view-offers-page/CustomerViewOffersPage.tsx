@@ -73,7 +73,7 @@ const CustomerViewOffersPage = () => {
 
       console.log("Fetched offers:", parsed);
 
-      setOffers(parsed);
+      setOffers(parsed.reverse());
       setLoading(false);
     };
 
