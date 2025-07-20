@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import ChatBox from "../../components/chat-box/ChatBox";
 import ChatBoxHeader from "../../components/chat-box/ChatBoxHeader";
-import { Box, Button, Group, Loader, Text } from "@mantine/core";
+import { Box, Button, Center, Group, Loader, Text } from "@mantine/core";
 import OfferAcceptedComponent from "../../components/offer-accepted-component/OfferAcceptedComponent";
 import { useAuth } from "../../contexts/AuthContext";
 import supabase from "../../supabase-client";
@@ -81,7 +81,9 @@ const CustomerChatPage = () => {
   }, [offerId, role]);
 
   if (!offerId) return <Text>Error: No offer ID provided</Text>;
-  if (loading || !receiverInfo || !restaurant) return <Loader />;
+  if (loading || !receiverInfo || !restaurant) return <Center h="100%">
+    <Loader />
+  </Center>;
 
   const sender = {
     id: user?.id,
