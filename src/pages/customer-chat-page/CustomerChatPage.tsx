@@ -81,6 +81,7 @@ const CustomerChatPage = () => {
     <div style={{ display: "flex", flexDirection: "column" }}>
       {openOffer && <OfferAcceptedComponent />}
       <ChatBoxHeader
+        role={role || "customer"}
         name={receiverInfo.name}
         avatarUrl={receiverInfo.avatarUrl}
       />
