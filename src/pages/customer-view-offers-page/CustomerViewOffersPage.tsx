@@ -138,30 +138,6 @@ const CustomerViewOffersPage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (loading) return;
-
-    const fakes = [
-      {
-        restaurantName: "Chum Bucket",
-        offerMessage: "Special discount and extra chum on your first order!",
-        restaurantImage: "/chum-bucket.png",
-      },
-      {
-        restaurantName: "Gusteau's",
-        offerMessage:
-          "At Gusteau's, anyone can cook - but only here can you taste the magic of Paris on a plate!",
-        restaurantImage: "/gusteaus.png",
-      },
-    ];
-
-    for (let i = 0; i < fakes.length; i++) {
-      setTimeout(() => {
-        setOffers((prev) => [fakes[i], ...prev]);
-      }, Math.random() * 5000 + 500);
-    }
-  }, [loading]);
-
   return (
     <Stack>
       <Stack p="sm">
