@@ -30,7 +30,7 @@ const BottomNavBar = ({ notifications = 0 }: Props) => {
           display: "flex",
           justifyContent: "space-around",
           alignItems: "center",
-          zIndex: 1000,
+          zIndex: 2,
           boxShadow: "0 -1px 3px rgba(0, 0, 0, 0.1)",
           backgroundColor: "white",
         }}
