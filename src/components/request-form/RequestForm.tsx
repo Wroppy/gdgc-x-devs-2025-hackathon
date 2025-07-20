@@ -100,7 +100,7 @@ const RequestForm = ({ onSubmit }: Props) => {
         ({ coords }) => {
           const location =
             "Auckland Dockline Tram Track, Daldy Street Shared Path, North Wharf, Wynyard Quarter, Auckland, Waitematā, Auckland, 1001, New Zealand";
-          new Promise((resolve) => setTimeout(resolve, 800)).then(() => {
+          new Promise((resolve) => setTimeout(resolve, 300)).then(() => {
             setLocation(location);
             setLoading(false);
           });
