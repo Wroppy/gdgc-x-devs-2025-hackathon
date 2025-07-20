@@ -10,14 +10,33 @@ import {
   Text,
   RangeSlider,
   Group,
+  Loader,
 } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import styles from "./request-form.module.css";
 import { IconMapPin, IconPin, IconTarget } from "@tabler/icons-react";
+import { useTimeout } from "@mantine/hooks";
 
-const cuisineOptions = ["American", "Asian", "Italian", "Mexican", "Indian", "French"];
-const moodOptions = ["Casual", "Romantic", "Family", "Party", "Quiet",
-  "Business", "Outdoor", "Indoor", "Pet-friendly", "Vegan-friendly"];
+const cuisineOptions = [
+  "American",
+  "Asian",
+  "Italian",
+  "Mexican",
+  "Indian",
+  "French",
+];
+const moodOptions = [
+  "Casual",
+  "Romantic",
+  "Family",
+  "Party",
+  "Quiet",
+  "Business",
+  "Outdoor",
+  "Indoor",
+  "Pet-friendly",
+  "Vegan-friendly",
+];
 
 type Props = {
   onSubmit?: (data: {
@@ -47,6 +66,7 @@ const RequestForm = ({ onSubmit }: Props) => {
   const [mood, setMood] = useState<string[]>(["Casual"]);
   const [budgetRange, setBudgetRange] = useState<[number, number]>([10, 20]);
   const [notes, setNotes] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleDateChange = (value: Date | string | null) => {
     if (value instanceof Date || value === null) {
@@ -72,21 +92,18 @@ const RequestForm = ({ onSubmit }: Props) => {
   };
 
   const findLocation = async () => {
+    setLoading(true);
     // Placeholder for location finding logic
     console.log("Finding location...");
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(
         ({ coords }) => {
-          // SUCCESSFUL:
-          const { latitude, longitude } = coords;
-          getAddressFromCoords(latitude, longitude)
-            .then((address) => {
-              setLocation(address);
-            })
-            .catch((error) => {
-              console.error("Error fetching address:", error);
-              setLocation("Unable to retrieve address.");
-            });
+          const location =
+            "Auckland Dockline Tram Track, Daldy Street Shared Path, North Wharf, Wynyard Quarter, Auckland, Waitematā, Auckland, 1001, New Zealand";
+          new Promise((resolve) => setTimeout(resolve, 300)).then(() => {
+            setLocation(location);
+            setLoading(false);
+          });
         },
         () => {
           setLocation("Unable to retrieve your location.");
@@ -121,11 +138,15 @@ const RequestForm = ({ onSubmit }: Props) => {
               flex={1}
               leftSection={<IconMapPin size={20} />}
               rightSection={
-                <IconTarget
-                  size={20}
-                  onClick={findLocation}
-                  style={{ cursor: "pointer" }}
-                />
+                loading ? (
+                  <Loader size="sm" />
+                ) : (
+                  <IconTarget
+                    size={20}
+                    onClick={findLocation}
+                    style={{ cursor: "pointer" }}
+                  />
+                )
               }
               readOnly
               label="Current At"
